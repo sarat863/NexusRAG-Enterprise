@@ -29,3 +29,7 @@ typing-inspection==0.4.4
 typing_extensions==4.16.0
 urllib3==2.7.0
 uvicorn==0.52.4
+pdf-inspector>=1.17.0
+reportlab>=5.0.1
+pillow>=12.3.0
+httpx>=0.28.1

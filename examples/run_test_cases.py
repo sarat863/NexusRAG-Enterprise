@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-NexusRAG Enterprise 4.0 Test Suite Runner.
+NexusRAG Enterprise v0.2.0 Test Suite Runner.
 Tests:
 1. Multi-Collection Vault Registry & Knowledge Graph
 2. Agentic Query Intelligence & HyDE Expansion

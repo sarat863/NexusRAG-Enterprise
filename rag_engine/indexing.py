@@ -12,15 +12,36 @@ from .ingestion import Chunk, Document
 from .config import default_config
 
 
+def normalize_leetspeak(text: str) -> str:
+    """Normalizes common leetspeak character substitutions inside words."""
+    def de_leet_word(match):
+        w = match.group(0)
+        # Preserve pure numbers or short technical codes like P0, P1, V2, L1, H1
+        if w.isdigit() or re.match(r"^\d+([.-]\d+)*$", w) or len(w) <= 2:
+            return w
+        if "-" in w:
+            parts = w.split("-")
+            trans = str.maketrans("01345@", "oieasa")
+            return "-".join([p if (p.isdigit() or (len(p) >= 3 and p.isdigit())) else p.translate(trans) for p in parts])
+        if any(c.isalpha() for c in w) and any(c in "01345@" for c in w):
+            trans = str.maketrans("01345@", "oieasa")
+            return w.translate(trans)
+        return w
+
+    return re.sub(r"[A-Za-z0-9_-]+", de_leet_word, text)
+
+
 def specialized_tokenizer(text: str) -> List[str]:
     """
     Tokenizes text while strictly preserving:
     - Acronyms (e.g., PTO, SLA, HIPAA, RRF, RAG)
     - Form/Policy IDs (e.g., Form HR-402, ISO-27001, API-v2, Sec-14.3)
     - Alphanumeric codes and exact terms.
+    - Normalizes leetspeak/obfuscation.
     """
+    cleaned = normalize_leetspeak(text)
     # Matches words with hyphens, underscores, dots, or standalone words/numbers
-    tokens = re.findall(r'[A-Za-z0-9]+(?:[-_.][A-Za-z0-9]+)*|[A-Za-z0-9]+', text.lower())
+    tokens = re.findall(r'[A-Za-z0-9]+(?:[-_.][A-Za-z0-9]+)*|[A-Za-z0-9]+', cleaned.lower())
     return tokens
 
 

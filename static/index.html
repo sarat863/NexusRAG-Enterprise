@@ -3,332 +3,483 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NexusRAG 4.0 | Next-Gen Enterprise RAG & A/B Experimentation Arena</title>
+  <title>NexusRAG Enterprise v0.2.0 | Production-Grade Hybrid RAG Intelligence</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    * { font-family: 'Plus Jakarta Sans', sans-serif; }
-    h1, h2, h3, .font-heading { font-family: 'Space Grotesk', sans-serif; }
+    * { font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif; }
+    h1, h2, h3, .font-heading { font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.02em; }
     code, pre, .font-mono { font-family: 'JetBrains Mono', monospace; }
+    
+    :root {
+      --bg-base: #060b17;
+      --bg-surface: #0a1224;
+      --bg-card: #0d1933;
+      --bg-card-hover: #102042;
+      --border-subtle: #162846;
+      --border-accent: #1e3a5f;
+      --border-focus: #2563eb;
+      --blue-primary: #1d4ed8;
+      --blue-hover: #2563eb;
+      --blue-active: #1e40af;
+      --blue-subtle: #0f2244;
+    }
+
     body {
-      background-color: #05060a;
+      background-color: var(--bg-base);
       color: #f1f5f9;
-      background-image:
-        radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.16) 0px, transparent 50%),
-        radial-gradient(at 100% 0%, rgba(236, 72, 153, 0.13) 0px, transparent 50%),
-        radial-gradient(at 50% 100%, rgba(6, 182, 212, 0.11) 0px, transparent 50%);
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(29, 78, 216, 0.12) 0px, transparent 65%),
+        linear-gradient(180deg, #070d1d 0%, #060b17 100%);
       background-attachment: fixed;
     }
-    .glass-panel {
-      background: rgba(12, 15, 24, 0.8);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.09);
+
+    .nexus-panel {
+      background: rgba(10, 18, 36, 0.95);
+      border: 1px solid var(--border-subtle);
     }
-    .glass-card {
-      background: rgba(18, 22, 36, 0.65);
-      backdrop-filter: blur(14px);
-      border: 1px solid rgba(255, 255, 255, 0.07);
+
+    .nexus-card {
+      background: rgba(13, 25, 51, 0.85);
+      border: 1px solid var(--border-accent);
     }
-    .glass-input {
-      background: rgba(8, 10, 18, 0.85);
-      border: 1px solid rgba(255, 255, 255, 0.14);
+
+    .nexus-input {
+      background: #081020;
+      border: 1px solid var(--border-accent);
       color: #f8fafc;
     }
-    .glass-input:focus {
-      border-color: #6366f1;
-      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.35);
+
+    .nexus-input:focus {
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.35);
       outline: none;
     }
-    .text-gradient {
-      background: linear-gradient(135deg, #a5b4fc 0%, #c084fc 40%, #f472b6 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+
+    .btn-primary {
+      background: var(--blue-primary);
+      border: 1px solid var(--border-focus);
+      color: #ffffff;
+      transition: all 0.15s ease-in-out;
     }
-    .glow-btn {
-      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
-      transition: all 0.3s ease;
+    .btn-primary:hover {
+      background: var(--blue-hover);
     }
-    .glow-btn:hover {
-      box-shadow: 0 0 25px rgba(139, 92, 246, 0.6);
-      transform: translateY(-1px);
+    .btn-primary:active {
+      background: var(--blue-active);
     }
+
+    .btn-secondary {
+      background: var(--blue-subtle);
+      border: 1px solid var(--border-accent);
+      color: #93c5fd;
+      transition: all 0.15s ease-in-out;
+    }
+    .btn-secondary:hover {
+      background: #162f58;
+      color: #ffffff;
+    }
+
+    .btn-emerald {
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: #34d399;
+      transition: all 0.15s ease-in-out;
+    }
+    .btn-emerald:hover {
+      background: rgba(16, 185, 129, 0.22);
+      color: #6ee7b7;
+    }
+
     .citation-badge {
-      background: rgba(99, 102, 241, 0.25);
-      border: 1px solid rgba(99, 102, 241, 0.5);
-      color: #e0e7ff;
-      padding: 2px 7px;
+      background: #0e2448;
+      border: 1px solid #1d4ed8;
+      color: #bfdbfe;
+      padding: 2px 8px;
       border-radius: 6px;
       font-size: 11px;
-      font-weight: 700;
+      font-weight: 600;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 3px;
-      transition: all 0.2s;
+      gap: 4px;
+      transition: all 0.15s;
     }
     .citation-badge:hover {
-      background: rgba(99, 102, 241, 0.5);
-      border-color: #a5b4fc;
-      transform: scale(1.03);
+      background: #1e3a8a;
+      color: #ffffff;
+      border-color: #3b82f6;
     }
+
     .cursor-blink::after {
       content: '▋';
       display: inline-block;
       margin-left: 2px;
-      color: #818cf8;
+      color: #60a5fa;
       animation: blink 0.8s infinite;
     }
     @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+    .dropzone {
+      border: 2px dashed #1e3a5f;
+      transition: all 0.2s ease;
+    }
+    .dropzone.dragover {
+      border-color: #3b82f6;
+      background: rgba(29, 78, 216, 0.15);
+    }
+
+    .rendered-table table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 8px 0;
+      font-size: 12px;
+    }
+    .rendered-table th {
+      background: #0f2244;
+      color: #93c5fd;
+      padding: 8px 12px;
+      text-align: left;
+      border: 1px solid var(--border-subtle);
+      font-weight: 700;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .rendered-table td {
+      padding: 7px 12px;
+      border: 1px solid var(--border-subtle);
+      color: #cbd5e1;
+    }
+    .rendered-table tr:nth-child(even) {
+      background: rgba(13, 25, 51, 0.6);
+    }
+    .rendered-table tr:hover {
+      background: rgba(29, 78, 216, 0.15);
+    }
+
+    /* Custom Scrollbar for deep dark blue */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #060b17;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e3a5f;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #2563eb;
+    }
   </style>
 </head>
 <body class="min-h-screen antialiased flex flex-col justify-between">
   <div>
-    <!-- Navigation Header -->
-    <header class="sticky top-0 z-50 w-full glass-panel border-b border-white/10 px-4 sm:px-8 py-3.5 backdrop-blur-2xl">
-      <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-indigo-600 via-purple-600 to-pink-500 flex items-center justify-center text-white font-extrabold text-lg shadow-xl shadow-indigo-600/40">
-            ⚡
+    <!-- Enterprise Navigation Header -->
+    <header class="sticky top-0 z-50 w-full nexus-panel border-b border-[#162846] px-4 sm:px-8 py-3">
+      <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-4">
+        
+        <!-- Brand & System Telemetry -->
+        <div class="flex items-center gap-3 w-full lg:w-auto justify-between lg:justify-start">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-blue-700 flex items-center justify-center text-white font-black text-base border border-blue-500 shadow-md">
+              ⚡
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="font-heading font-extrabold text-lg text-white tracking-tight">NexusRAG</span>
+                <span class="text-[10px] px-2 py-0.5 rounded-md bg-[#0f2244] border border-[#1e3a5f] text-blue-300 font-mono font-bold">
+                  v0.2.0
+                </span>
+                <span class="text-[10px] px-2 py-0.5 rounded-md bg-emerald-950/60 border border-emerald-500/40 text-emerald-400 font-mono font-bold flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> ACID Persistent
+                </span>
+              </div>
+            </div>
           </div>
-          <div>
-            <span class="font-heading font-extrabold text-xl text-white flex items-center gap-2">
-              NexusRAG <span class="text-[10px] px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-500/20 to-pink-500/20 border border-indigo-500/40 text-indigo-300 font-sans uppercase tracking-widest font-bold">Enterprise 4.0</span>
-            </span>
+
+          <!-- Mobile Controls Toggle or Quick Indicators -->
+          <div class="flex lg:hidden items-center gap-2">
+            <span id="mobile-role-pill" class="text-[10px] px-2 py-0.5 rounded bg-blue-950 border border-blue-800 text-blue-300 font-mono">Admin</span>
           </div>
         </div>
 
-        <!-- Dynamic Vault Selector & Navigation Tabs -->
-        <div class="flex flex-wrap items-center gap-3">
-          <!-- Active Vault Selector Pill -->
-          <div class="flex items-center gap-2 bg-black/50 px-3 py-1.5 rounded-xl border border-white/10 text-xs">
-            <span class="text-slate-400">Vault:</span>
-            <select id="vault-select" onchange="changeActiveVault(this.value)" class="bg-transparent text-indigo-300 font-bold focus:outline-none cursor-pointer">
-              <option value="all" class="bg-slate-900 text-white font-bold" selected>🌐 All Vaults (Unified)</option>
-              <option value="hr_benefits" class="bg-slate-900 text-white">👥 HR & Benefits</option>
-              <option value="sre_infra" class="bg-slate-900 text-white">⚡ SRE & SLA Specs</option>
-              <option value="infosec_compliance" class="bg-slate-900 text-white">🛡️ InfoSec & HIPAA</option>
-              <option value="procurement_quantum" class="bg-slate-900 text-white">🔬 AI & Quantum</option>
+        <!-- Global Context Bar: RBAC Role Switcher & Active Vault Selector -->
+        <div class="flex flex-wrap items-center gap-2.5 text-xs">
+          
+          <!-- RBAC Switcher -->
+          <div class="flex items-center gap-1.5 bg-[#081020] px-2.5 py-1.5 rounded-xl border border-[#162846]">
+            <span class="text-slate-400 font-medium">Role:</span>
+            <select id="rbac-role-select" onchange="handleRbacRoleChange(this.value)" class="bg-transparent text-blue-300 font-semibold focus:outline-none cursor-pointer">
+              <option value="admin" class="bg-[#081020] text-white" selected>👑 Admin (Full Access)</option>
+              <option value="auditor" class="bg-[#081020] text-white">🛡️ Auditor (Compliance)</option>
+              <option value="analyst" class="bg-[#081020] text-white">🔬 Analyst (Research)</option>
+              <option value="guest" class="bg-[#081020] text-white">👤 Guest (Read Only)</option>
             </select>
           </div>
 
-          <nav class="flex items-center gap-1.5 bg-black/40 p-1 rounded-2xl border border-white/5 text-xs font-semibold">
-            <button id="nav-btn-query" onclick="switchMainTab('query')" class="px-3 py-1.5 rounded-xl transition-all bg-indigo-600 text-white shadow-md">
-              🔍 RAG Ops
+          <!-- Active Vault Selector Pill -->
+          <div class="flex items-center gap-1.5 bg-[#081020] px-2.5 py-1.5 rounded-xl border border-[#162846]">
+            <span class="text-slate-400 font-medium">Vault:</span>
+            <select id="vault-select" onchange="changeActiveVault(this.value)" class="bg-transparent text-blue-300 font-semibold focus:outline-none cursor-pointer">
+              <option value="all" class="bg-[#081020] text-white font-bold" selected>🌐 All Vaults (Unified)</option>
+              <option value="pdf_standards" class="bg-[#081020] text-white">📑 PDF Standards & Lab</option>
+              <option value="hr_benefits" class="bg-[#081020] text-white">👥 HR & Benefits</option>
+              <option value="sre_infra" class="bg-[#081020] text-white">⚡ SRE & SLA Specs</option>
+              <option value="infosec_compliance" class="bg-[#081020] text-white">🛡️ InfoSec & HIPAA</option>
+              <option value="procurement_quantum" class="bg-[#081020] text-white">🔬 AI & Quantum</option>
+            </select>
+          </div>
+
+          <!-- Session Memory Selector -->
+          <div class="flex items-center gap-1.5 bg-[#081020] px-2.5 py-1.5 rounded-xl border border-[#162846]">
+            <span class="text-slate-400 font-medium">Session:</span>
+            <span id="session-id-display" class="font-mono text-slate-300 font-semibold text-[11px]">session_01</span>
+            <button onclick="createNewSession()" title="Start New Conversation Session" class="ml-1 text-slate-400 hover:text-white font-bold text-xs">
+              ➕
             </button>
-            <button id="nav-btn-arena" onclick="switchMainTab('arena')" class="px-3 py-1.5 rounded-xl transition-all text-slate-400 hover:text-white">
-              ⚔️ A/B Arena
-            </button>
-            <button id="nav-btn-timeline" onclick="switchMainTab('timeline')" class="px-3 py-1.5 rounded-xl transition-all text-slate-400 hover:text-white">
-              ⏱️ Policy Timeline
-            </button>
-            <button id="nav-btn-graph" onclick="switchMainTab('graph')" class="px-3 py-1.5 rounded-xl transition-all text-slate-400 hover:text-white">
-              🕸️ Knowledge Graph
-            </button>
-            <button id="nav-btn-triad" onclick="switchMainTab('triad')" class="px-3 py-1.5 rounded-xl transition-all text-slate-400 hover:text-white">
-              📊 RAG Triad
-            </button>
-            <button id="nav-btn-vaults" onclick="switchMainTab('vaults')" class="px-3 py-1.5 rounded-xl transition-all text-slate-400 hover:text-white">
-              🗄️ Vaults
-            </button>
-          </nav>
+          </div>
         </div>
+      </div>
+
+      <!-- Main Navigation Tabs Bar -->
+      <div class="max-w-7xl mx-auto mt-2.5 pt-2 border-t border-[#162846]/70 flex items-center overflow-x-auto gap-1 text-xs font-semibold py-1">
+        <button id="nav-btn-query" onclick="switchMainTab('query')" class="px-3 py-1.5 rounded-lg transition-all bg-blue-700 text-white shadow-sm whitespace-nowrap">
+          🔍 RAG Ops & Stream
+        </button>
+        <button id="nav-btn-multihop" onclick="switchMainTab('multihop')" class="px-3 py-1.5 rounded-lg transition-all text-slate-400 hover:text-slate-200 hover:bg-[#0f2244] whitespace-nowrap">
+          🤖 Multi-Hop Agent
+        </button>
+        <button id="nav-btn-raptor" onclick="switchMainTab('raptor')" class="px-3 py-1.5 rounded-lg transition-all text-slate-400 hover:text-slate-200 hover:bg-[#0f2244] whitespace-nowrap">
+          🌲 RAPTOR Hierarchy
+        </button>
+        <button id="nav-btn-docgen" onclick="switchMainTab('docgen')" class="px-3 py-1.5 rounded-lg transition-all text-slate-400 hover:text-slate-200 hover:bg-[#0f2244] whitespace-nowrap">
+          📜 Scholar DocGen
+        </button>
+        <button id="nav-btn-pdf" onclick="switchMainTab('pdf')" class="px-3 py-1.5 rounded-lg transition-all text-slate-400 hover:text-slate-200 hover:bg-[#0f2244] whitespace-nowrap">
+          📄 PDF Inspector Lab
+        </button>
+        <button id="nav-btn-arena" onclick="switchMainTab('arena')" class="px-3 py-1.5 rounded-lg transition-all text-slate-400 hover:text-slate-200 hover:bg-[#0f2244] whitespace-nowrap">
+          ⚔️ A/B Arena
+        </button>
+        <button id="nav-btn-audit" onclick="switchMainTab('audit')" class="px-3 py-1.5 rounded-lg transition-all text-slate-400 hover:text-slate-200 hover:bg-[#0f2244] whitespace-nowrap">
+          🛡️ Cryptographic Audit
+        </button>
+        <button id="nav-btn-mcp" onclick="switchMainTab('mcp')" class="px-3 py-1.5 rounded-lg transition-all text-slate-400 hover:text-slate-200 hover:bg-[#0f2244] whitespace-nowrap">
+          🔌 MCP Hub
+        </button>
+        <button id="nav-btn-timeline" onclick="switchMainTab('timeline')" class="px-3 py-1.5 rounded-lg transition-all text-slate-400 hover:text-slate-200 hover:bg-[#0f2244] whitespace-nowrap">
+          ⏱️ Policy Timeline
+        </button>
+        <button id="nav-btn-graph" onclick="switchMainTab('graph')" class="px-3 py-1.5 rounded-lg transition-all text-slate-400 hover:text-slate-200 hover:bg-[#0f2244] whitespace-nowrap">
+          🕸️ Knowledge Graph
+        </button>
+        <button id="nav-btn-triad" onclick="switchMainTab('triad')" class="px-3 py-1.5 rounded-lg transition-all text-slate-400 hover:text-slate-200 hover:bg-[#0f2244] whitespace-nowrap">
+          📊 RAG Triad
+        </button>
+        <button id="nav-btn-vaults" onclick="switchMainTab('vaults')" class="px-3 py-1.5 rounded-lg transition-all text-slate-400 hover:text-slate-200 hover:bg-[#0f2244] whitespace-nowrap">
+          🗄️ Vaults & Ingest
+        </button>
       </div>
     </header>
 
     <!-- Main Container -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-8 py-8 space-y-8">
+    <main class="max-w-7xl mx-auto px-4 sm:px-8 py-6 space-y-6">
       
       <!-- ================= TAB 1: RAG OPS & STREAMING CENTER ================= -->
       <section id="tab-query" class="space-y-6">
-        <!-- Hero Header -->
-        <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-white/10 shadow-2xl relative overflow-hidden">
-          <div class="max-w-3xl space-y-3">
-            <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-semibold bg-indigo-500/10 border border-indigo-500/30 text-indigo-300">
-              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-              CRAG Self-Reflection • HyDE Expansion • Progressive SSE Streaming • Grounded Citations
+        
+        <!-- Header Banner -->
+        <div class="nexus-panel p-6 sm:p-7 rounded-2xl border border-[#162846] space-y-2">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md text-xs font-semibold bg-[#0f2244] border border-[#1e3a5f] text-blue-300">
+              <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+              Hybrid RRF Over-fetching • CRAG Active Reflection • HyDE Multi-Query • Verifiable Citations
             </div>
-            <h1 class="text-2xl sm:text-4xl font-extrabold text-white">
-              Enterprise <span class="text-gradient">Hybrid RAG & Observability Center</span>
-            </h1>
-            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-              Multi-perspective query decomposition, hybrid over-fetching, active CRAG confidence reflection, contextual cross-attention reranking, and verifiable source citations.
-            </p>
+            <div class="text-xs text-slate-400 font-mono">
+              Engine: <strong class="text-slate-200">SQLite ACID + Cross-Encoder Rerank</strong>
+            </div>
           </div>
+          <h1 class="text-xl sm:text-2xl font-bold text-white tracking-tight">
+            Enterprise Hybrid RAG Intelligence & Telemetry
+          </h1>
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-4xl">
+            Execute sub-millisecond multi-perspective hybrid queries across text, unstructured policies, and structured PDF tables with deterministic citation grounding, self-reflective CRAG verification, and real-time SSE token streaming.
+          </p>
         </div>
 
         <!-- Query Form & Tunable Parameters Drawer -->
-        <div class="glass-panel p-6 rounded-3xl border border-white/10 space-y-4">
-          <div class="flex flex-col sm:flex-row gap-3">
+        <div class="nexus-panel p-6 rounded-2xl border border-[#162846] space-y-4">
+          <div class="flex flex-col sm:flex-row gap-2.5">
             <input
               type="text"
               id="query-input"
-              placeholder="Enter enterprise policy, infrastructure SLA, or compliance inquiry..."
-              value="What form must employees submit for medical absences over 3 days?"
-              class="flex-1 glass-input px-4 py-3.5 rounded-2xl text-sm"
+              placeholder="Enter policy standard, disaster recovery SLA, or PDF tabular question..."
+              value="What is the response SLA for P0 Model Breach under SEC-909?"
+              class="flex-1 nexus-input px-4 py-3 rounded-xl text-sm"
               onkeydown="if(event.key==='Enter') executeEnterpriseQuery()"
             />
             <button
               id="submit-btn"
               onclick="executeEnterpriseQuery()"
-              class="glow-btn px-6 py-3.5 rounded-2xl text-xs font-bold text-white whitespace-nowrap shadow-lg flex items-center justify-center gap-2"
+              class="btn-primary px-6 py-3 rounded-xl text-xs font-bold whitespace-nowrap flex items-center justify-center gap-2 shadow-sm"
             >
-              <span>⚡ Execute RAG</span>
+              <span>⚡ Execute Query</span>
             </button>
             <button
               onclick="executeStreamingQuery()"
-              class="px-4 py-3.5 rounded-2xl text-xs font-bold text-indigo-300 bg-indigo-500/10 border border-indigo-500/30 hover:bg-indigo-500/20 whitespace-nowrap"
+              class="btn-secondary px-4 py-3 rounded-xl text-xs font-bold whitespace-nowrap flex items-center justify-center gap-1.5"
             >
               <span>🌊 SSE Stream</span>
             </button>
           </div>
 
           <!-- Quick Presets -->
-          <div class="flex flex-wrap items-center gap-2 text-xs">
-            <span class="text-slate-400 font-semibold">HR Presets:</span>
-            <button onclick="setQueryPreset('hr_benefits', 'What form must employees submit for medical absences exceeding 3 consecutive days?')" class="px-2.5 py-1 rounded-lg bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 hover:bg-indigo-500/20">
-              📋 Form HR-402
-            </button>
-            <button onclick="setQueryPreset('hr_benefits', 'Within how many hours must Form HR-402 be submitted to HR?')" class="px-2.5 py-1 rounded-lg bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 hover:bg-indigo-500/20">
-              ⏱️ 48-Hour Deadline
-            </button>
-            <button onclick="setQueryPreset('hr_benefits', 'Who must sign Form HR-402 before submission to HR?')" class="px-2.5 py-1 rounded-lg bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 hover:bg-indigo-500/20">
-              ✍️ Doctor Signature
-            </button>
-            <button onclick="setQueryPreset('hr_benefits', 'How many PTO days do full-time employees accrue per month and per year?')" class="px-2.5 py-1 rounded-lg bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 hover:bg-indigo-500/20">
-              🏖️ PTO Accrual
-            </button>
-            <button onclick="setQueryPreset('hr_benefits', 'How many unused PTO days can an employee roll over to the next year?')" class="px-2.5 py-1 rounded-lg bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 hover:bg-indigo-500/20">
-              🔄 5-Day Rollover
-            </button>
-            <button onclick="setQueryPreset('hr_benefits', 'Does bereavement leave deduct from standard PTO balance and how many days are allowed?')" class="px-2.5 py-1 rounded-lg bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 hover:bg-indigo-500/20">
-              🕊️ Bereavement Leave
-            </button>
+          <div class="space-y-2 text-xs">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="text-blue-300 font-semibold">📑 PDF Standards Presets:</span>
+              <button onclick="setQueryPreset('pdf_standards', 'What is the response SLA for P0 Model Breach under SEC-909?')" class="px-2.5 py-1 rounded-lg bg-[#0d1f3c] border border-[#1e3a5f] text-blue-200 hover:bg-[#163360] hover:text-white">
+                🚨 SEC-909 SLA Matrix (PDF)
+              </button>
+              <button onclick="setQueryPreset('pdf_standards', 'What is the RTO target and backup frequency for Tier-1 Relational DB?')" class="px-2.5 py-1 rounded-lg bg-[#0d1f3c] border border-[#1e3a5f] text-blue-200 hover:bg-[#163360] hover:text-white">
+                💾 Disaster Recovery Matrix (PDF)
+              </button>
+              <button onclick="setQueryPreset('pdf_standards', 'How many annual PTO days do staff with 3-5 years tenure receive?')" class="px-2.5 py-1 rounded-lg bg-[#0d1f3c] border border-[#1e3a5f] text-blue-200 hover:bg-[#163360] hover:text-white">
+                📅 Executive PTO Schedule (PDF)
+              </button>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="text-slate-400 font-semibold">HR & Infra Presets:</span>
+              <button onclick="setQueryPreset('hr_benefits', 'What form must employees submit for medical absences exceeding 3 consecutive days?')" class="px-2.5 py-1 rounded-lg bg-[#081426] border border-[#162846] text-slate-300 hover:bg-[#0f2244] hover:text-white">
+                📋 Form HR-402
+              </button>
+              <button onclick="setQueryPreset('sre_infra', 'What is the RTO and RPO for Tier-1 relational databases?')" class="px-2.5 py-1 rounded-lg bg-[#081426] border border-[#162846] text-slate-300 hover:bg-[#0f2244] hover:text-white">
+                ⚡ Tier-1 SRE SLAs
+              </button>
+              <button onclick="setQueryPreset('infosec_compliance', 'What authentication rule strictly prohibits SMS 2FA?')" class="px-2.5 py-1 rounded-lg bg-[#081426] border border-[#162846] text-slate-300 hover:bg-[#0f2244] hover:text-white">
+                🛡️ Rule SEC-881
+              </button>
+            </div>
           </div>
 
           <!-- Parameter Sliders -->
-          <div class="pt-3 border-t border-white/10 grid grid-cols-1 sm:grid-cols-4 gap-4 text-xs">
+          <div class="pt-3 border-t border-[#162846] grid grid-cols-1 sm:grid-cols-4 gap-4 text-xs">
             <div class="space-y-1">
               <div class="flex justify-between text-slate-400">
                 <span>Dense vs BM25 Alpha (α)</span>
-                <span id="alpha-val" class="text-indigo-300 font-mono font-bold">0.50</span>
+                <span id="alpha-val" class="text-blue-300 font-mono font-bold">0.50</span>
               </div>
-              <input type="range" id="param-alpha" min="0" max="1" step="0.05" value="0.50" oninput="document.getElementById('alpha-val').innerText=Number(this.value).toFixed(2)" class="w-full accent-indigo-500 cursor-pointer">
+              <input type="range" id="param-alpha" min="0" max="1" step="0.05" value="0.50" oninput="document.getElementById('alpha-val').innerText=Number(this.value).toFixed(2)" class="w-full accent-blue-600 cursor-pointer">
             </div>
 
             <div class="space-y-1">
               <div class="flex justify-between text-slate-400">
-                <span>RRF Constant (k)</span>
-                <span id="rrf-val" class="text-purple-300 font-mono font-bold">60</span>
+                <span>RRF Fusion Constant (k)</span>
+                <span id="rrf-val" class="text-blue-300 font-mono font-bold">60</span>
               </div>
-              <input type="range" id="param-rrf" min="10" max="100" step="5" value="60" oninput="document.getElementById('rrf-val').innerText=this.value" class="w-full accent-purple-500 cursor-pointer">
+              <input type="range" id="param-rrf" min="10" max="100" step="5" value="60" oninput="document.getElementById('rrf-val').innerText=this.value" class="w-full accent-blue-600 cursor-pointer">
             </div>
 
             <div class="space-y-1">
               <div class="flex justify-between text-slate-400">
-                <span>Rerank Depth (Top-K)</span>
-                <span id="topk-val" class="text-pink-300 font-mono font-bold">4</span>
+                <span>Reranker Top-K</span>
+                <span id="topk-val" class="text-blue-300 font-mono font-bold">4</span>
               </div>
-              <input type="range" id="param-topk" min="2" max="8" step="1" value="4" oninput="document.getElementById('topk-val').innerText=this.value" class="w-full accent-pink-500 cursor-pointer">
+              <input type="range" id="param-topk" min="2" max="8" step="1" value="4" oninput="document.getElementById('topk-val').innerText=this.value" class="w-full accent-blue-600 cursor-pointer">
             </div>
 
-            <div class="flex items-center justify-between pt-2">
-              <label class="flex items-center gap-2 cursor-pointer text-slate-300">
-                <input type="checkbox" id="param-hyde" checked class="rounded accent-indigo-500">
-                <span>Enable HyDE</span>
+            <div class="flex items-center gap-4 pt-4">
+              <label class="flex items-center gap-1.5 cursor-pointer text-slate-300">
+                <input type="checkbox" id="param-hyde" checked class="accent-blue-600 rounded"> HyDE Exp
               </label>
-              <label class="flex items-center gap-2 cursor-pointer text-slate-300">
-                <input type="checkbox" id="param-multiquery" checked class="rounded accent-indigo-500">
-                <span>Multi-Query</span>
+              <label class="flex items-center gap-1.5 cursor-pointer text-slate-300">
+                <input type="checkbox" id="param-multiquery" checked class="accent-blue-600 rounded"> Multi-Query
               </label>
             </div>
           </div>
         </div>
 
-        <!-- Output Section -->
+        <!-- Query Results Section -->
         <div id="result-section" class="space-y-6 hidden">
-          <!-- Answer & RAG Triad Quick Bar -->
-          <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-white/15 space-y-5 shadow-2xl">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-4">
+          <!-- Answer Card -->
+          <div class="nexus-panel p-6 sm:p-7 rounded-2xl border border-[#162846] space-y-4">
+            <div class="flex flex-wrap items-center justify-between gap-3 border-b border-[#162846] pb-3.5">
               <div class="flex items-center gap-2">
-                <span class="px-2.5 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold flex items-center gap-1.5">
-                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
-                  Grounded Synthesis
-                </span>
-                <span id="res-vault-badge" class="px-2.5 py-1 rounded-lg bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-xs font-bold"></span>
-                <span id="crag-action-badge" class="px-2.5 py-1 rounded-lg bg-purple-500/10 border border-purple-500/30 text-purple-300 text-xs font-bold"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                <span class="font-heading font-bold text-sm sm:text-base text-white">Synthesized Grounded Answer</span>
+                <span id="res-vault-badge" class="px-2 py-0.5 rounded bg-[#0f2244] border border-[#1e3a5f] text-blue-300 text-[10px] font-mono font-bold uppercase">Vault: UNIFIED</span>
+                <span id="crag-action-badge" class="px-2 py-0.5 rounded bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 text-[10px] font-mono font-bold uppercase">CRAG: CORRECT</span>
               </div>
-              <div class="flex items-center gap-3 text-xs font-mono text-slate-400">
-                <span>Total Latency: <strong id="total-latency" class="text-indigo-300"></strong></span>
-                <button onclick="downloadAuditCertificate()" class="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-slate-200 hover:text-white hover:border-indigo-400">
-                  📜 Export Audit
+              <div class="flex items-center gap-2 text-xs font-mono text-slate-400">
+                <span>Latency: <strong id="total-latency" class="text-blue-300 font-bold">-- ms</strong></span>
+                <button onclick="downloadAuditCertificate()" class="px-2.5 py-1 rounded bg-[#0f2244] border border-[#1e3a5f] hover:bg-[#163360] text-blue-200 transition-all flex items-center gap-1">
+                  <span>📜 Export Audit Certificate</span>
+                </button>
+                <button onclick="sendResultToDocGen()" class="px-2.5 py-1 rounded bg-blue-900/60 border border-blue-600/40 hover:bg-blue-800 text-blue-200 transition-all flex items-center gap-1">
+                  <span>📑 Open in DocGen</span>
                 </button>
               </div>
             </div>
 
-            <!-- Answer Content -->
-            <div id="answer-text" class="text-sm sm:text-base text-slate-100 leading-relaxed font-medium"></div>
+            <!-- Answer Text with Citations -->
+            <div id="answer-text" class="text-sm sm:text-base text-slate-100 leading-relaxed font-normal"></div>
 
-            <!-- Citations Grid -->
-            <div class="pt-4 border-t border-white/10 space-y-2">
-              <span class="text-xs font-semibold uppercase tracking-wider text-indigo-400 flex items-center gap-1.5">
-                🔗 Grounded Source Citations (<span id="citation-count">0</span>)
-              </span>
+            <!-- Citations Cards -->
+            <div class="space-y-2 pt-4 border-t border-[#162846]">
+              <span class="text-xs font-bold uppercase text-slate-400 tracking-wider">Verifiable Evidence Citations (<span id="citation-count" class="text-blue-300 font-mono">0</span>)</span>
               <div id="citations-container" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
             </div>
           </div>
 
-          <!-- Multi-Query & CRAG Trace -->
-          <div class="glass-panel p-5 rounded-3xl border border-white/10 space-y-3">
-            <h3 class="text-sm font-bold text-white flex items-center gap-2">
-              🧠 Agentic Query & CRAG Self-Reflection Trace
-            </h3>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
-              <div class="glass-card p-3 rounded-xl border border-white/5 space-y-1">
-                <span class="text-slate-400 font-semibold">Intent & CRAG Action:</span>
-                <p id="trace-intent" class="text-indigo-300 font-mono font-bold uppercase"></p>
-                <p id="trace-crag-reason" class="text-slate-300 text-[11px]"></p>
+          <!-- Trace & Observability Accordion -->
+          <div class="nexus-card p-4 rounded-xl border border-[#1e3a5f] space-y-3">
+            <div class="flex items-center justify-between cursor-pointer" onclick="document.getElementById('trace-drawer').classList.toggle('hidden')">
+              <span class="font-bold text-xs uppercase tracking-wider text-slate-300">⚡ Observability & Multi-Perspective Pipeline Trace</span>
+              <span class="text-blue-400 text-xs font-mono">▼ View Execution Telemetry</span>
+            </div>
+            <div id="trace-drawer" class="space-y-3 pt-3 border-t border-[#162846] hidden text-xs">
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div class="p-3 rounded-lg bg-[#081020] border border-[#162846]">
+                  <span class="text-slate-400 block text-[10px] uppercase font-bold">Intent Classified</span>
+                  <strong id="trace-intent" class="text-blue-300 font-mono">--</strong>
+                </div>
+                <div class="p-3 rounded-lg bg-[#081020] border border-[#162846]">
+                  <span class="text-slate-400 block text-[10px] uppercase font-bold">CRAG Reflection Quality</span>
+                  <strong id="trace-crag-reason" class="text-emerald-300 font-mono">--</strong>
+                </div>
+                <div class="p-3 rounded-lg bg-[#081020] border border-[#162846]">
+                  <span class="text-slate-400 block text-[10px] uppercase font-bold">HyDE Document Generated</span>
+                  <p id="trace-hyde" class="text-slate-300 text-[11px] line-clamp-2">--</p>
+                </div>
               </div>
-
-              <div class="glass-card p-3 rounded-xl border border-white/5 space-y-1">
-                <span class="text-slate-400 font-semibold">Multi-Query Expansions:</span>
-                <ul id="trace-expansions" class="text-slate-300 list-disc list-inside font-mono text-[11px] space-y-0.5"></ul>
-              </div>
-
-              <div class="glass-card p-3 rounded-xl border border-white/5 space-y-1">
-                <span class="text-slate-400 font-semibold">HyDE Hypothetical Document:</span>
-                <p id="trace-hyde" class="text-slate-300 font-mono text-[11px] line-clamp-3 italic"></p>
+              <div>
+                <span class="text-slate-400 block mb-1 text-[10px] uppercase font-bold">Expanded Sub-Queries:</span>
+                <ul id="trace-expansions" class="list-disc pl-4 space-y-0.5 text-slate-300 text-[11px]"></ul>
               </div>
             </div>
           </div>
 
-          <!-- Multi-Stage Retrieval Waterfall Table -->
-          <div class="glass-panel p-6 rounded-3xl border border-white/10 space-y-4">
-            <div class="flex items-center justify-between">
-              <div>
-                <h3 class="text-base font-bold text-white">Hybrid Retrieval & Cross-Encoder Waterfall</h3>
-                <p class="text-xs text-slate-400">Dense Vector Rank, BM25 Keyword Rank, RRF Merge Score & Cross-Encoder Rerank Precision Score</p>
-              </div>
-              <span class="px-3 py-1 rounded-full text-xs font-semibold bg-purple-500/10 border border-purple-500/30 text-purple-300">
-                Top Precision Candidates
-              </span>
-            </div>
-
+          <!-- Candidates Waterfall Table -->
+          <div class="nexus-panel p-6 rounded-2xl border border-[#162846] space-y-4">
+            <h3 class="font-bold text-sm text-white">Hybrid Retrieval & Contextual Cross-Attention Waterfall</h3>
             <div class="overflow-x-auto">
               <table class="w-full text-left text-xs border-collapse">
                 <thead>
-                  <tr class="border-b border-white/10 text-slate-400 uppercase tracking-wider text-[10px]">
-                    <th class="py-3 px-3">Chunk ID</th>
-                    <th class="py-3 px-3">Document & Section</th>
-                    <th class="py-3 px-3 text-center">Dense Rank/Score</th>
-                    <th class="py-3 px-3 text-center">BM25 Rank/Score</th>
-                    <th class="py-3 px-3 text-center">RRF Score</th>
-                    <th class="py-3 px-3 text-center">Cross-Encoder</th>
-                    <th class="py-3 px-3">Content Excerpt</th>
+                  <tr class="border-b border-[#162846] text-slate-400 text-[11px] font-mono bg-[#081020]">
+                    <th class="py-2.5 px-3">Chunk ID</th>
+                    <th class="py-2.5 px-3">Source & Section</th>
+                    <th class="py-2.5 px-3 text-center">Dense Rank</th>
+                    <th class="py-2.5 px-3 text-center">Sparse Rank</th>
+                    <th class="py-2.5 px-3 text-center">RRF Score</th>
+                    <th class="py-2.5 px-3 text-center">Rerank Score</th>
+                    <th class="py-2.5 px-3">Excerpt</th>
                   </tr>
                 </thead>
-                <tbody id="retrieval-table-body" class="divide-y divide-white/5 text-slate-300"></tbody>
+                <tbody id="retrieval-table-body" class="divide-y divide-[#162846]"></tbody>
               </table>
             </div>
           </div>
@@ -336,87 +487,621 @@
       </section>
 
 
-      <!-- ================= TAB 2: A/B STRATEGY EXPERIMENTATION ARENA ================= -->
-      <section id="tab-arena" class="space-y-6 hidden">
-        <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-white/10 space-y-6">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-            <div>
-              <h2 class="text-xl font-bold text-white">⚔️ RAG Strategy A/B Experimentation Arena</h2>
-              <p class="text-xs text-slate-400">Benchmark single-encoder dense vector search against advanced Hybrid RRF + CRAG + Cross-Encoder reranking side-by-side.</p>
+      <!-- ================= TAB 2: MULTI-HOP RESEARCH AGENT ================= -->
+      <section id="tab-multihop" class="space-y-6 hidden">
+        <div class="nexus-panel p-6 sm:p-7 rounded-2xl border border-[#162846] space-y-3">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md text-xs font-semibold bg-[#0f2244] border border-[#1e3a5f] text-blue-300">
+            <span class="w-2 h-2 rounded-full bg-blue-400"></span>
+            Iterative Sub-Goal Decomposition • Cross-Vault Traversal • Multi-Hop Evidence Synthesis
+          </div>
+          <h2 class="text-xl sm:text-2xl font-bold text-white tracking-tight">
+            Autonomous Multi-Hop Research Agent
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-4xl">
+            Performs autonomous multi-step reasoning to answer complex questions that span multiple policies, disparate departments, or cross-vault knowledge boundaries. Identifies knowledge gaps iteratively until factual resolution is reached.
+          </p>
+        </div>
+
+        <!-- Research Input Card -->
+        <div class="nexus-panel p-6 rounded-2xl border border-[#162846] space-y-4">
+          <div class="flex flex-col sm:flex-row gap-3">
+            <input
+              type="text"
+              id="multihop-query-input"
+              placeholder="Enter complex multi-hop question (e.g. Compare PTO rollover rules with disaster recovery on-call compensation)..."
+              value="Compare employee medical leave submission requirements with P0 security escalation procedures."
+              class="flex-1 nexus-input px-4 py-3 rounded-xl text-sm"
+              onkeydown="if(event.key==='Enter') executeMultiHopResearch()"
+            />
+            <button
+              id="multihop-btn"
+              onclick="executeMultiHopResearch()"
+              class="btn-primary px-6 py-3 rounded-xl text-xs font-bold whitespace-nowrap flex items-center justify-center gap-2"
+            >
+              <span>🤖 Launch Research Agent</span>
+            </button>
+          </div>
+
+          <div class="flex flex-wrap items-center justify-between gap-4 pt-2 border-t border-[#162846] text-xs">
+            <div class="flex items-center gap-3">
+              <span class="text-slate-400">Initial Vault:</span>
+              <select id="multihop-vault" class="nexus-input px-3 py-1 rounded-lg text-xs text-blue-300 font-semibold focus:outline-none">
+                <option value="all" selected>🌐 All Vaults (Cross-Vault Autonomous)</option>
+                <option value="infosec_compliance">🛡️ InfoSec & HIPAA</option>
+                <option value="hr_benefits">👥 HR & Benefits</option>
+                <option value="sre_infra">⚡ SRE & SLA Specs</option>
+                <option value="pdf_standards">📑 PDF Standards</option>
+              </select>
             </div>
-            <button onclick="runArenaComparison()" id="arena-run-btn" class="glow-btn px-5 py-2.5 rounded-xl text-xs font-bold text-white shadow-lg">
+
+            <div class="flex items-center gap-3">
+              <span class="text-slate-400">Max Hop Iterations:</span>
+              <span id="multihop-hops-val" class="font-mono text-blue-300 font-bold">3</span>
+              <input type="range" id="multihop-max-hops" min="1" max="5" value="3" oninput="document.getElementById('multihop-hops-val').innerText=this.value" class="accent-blue-600 cursor-pointer w-24">
+            </div>
+          </div>
+        </div>
+
+        <!-- Multi-Hop Results -->
+        <div id="multihop-results-section" class="space-y-6 hidden">
+          <!-- Final Synthesis Card -->
+          <div class="nexus-panel p-6 rounded-2xl border border-[#162846] space-y-4">
+            <div class="flex flex-wrap items-center justify-between gap-3 border-b border-[#162846] pb-3">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                <h3 class="font-heading font-bold text-base text-white">Multi-Hop Research Synthesis</h3>
+              </div>
+              <div class="flex items-center gap-3 text-xs font-mono text-slate-400">
+                <span>Hops Taken: <strong id="multihop-hops-count" class="text-blue-300">--</strong></span>
+                <span>Chunks: <strong id="multihop-chunks-count" class="text-blue-300">--</strong></span>
+                <span>Faithfulness: <strong id="multihop-faith-score" class="text-emerald-400">--%</strong></span>
+                <span>Latency: <strong id="multihop-latency" class="text-blue-300">-- ms</strong></span>
+              </div>
+            </div>
+            <div id="multihop-answer" class="text-sm text-slate-100 leading-relaxed font-normal"></div>
+          </div>
+
+          <!-- Step Trace Timeline -->
+          <div class="nexus-panel p-6 rounded-2xl border border-[#162846] space-y-4">
+            <h3 class="font-bold text-sm text-white">Sequential Reasoning & Hop Trajectory</h3>
+            <div id="multihop-traces-container" class="space-y-3"></div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ================= TAB 3: RAPTOR HIERARCHY & TREE EXPLORER ================= -->
+      <section id="tab-raptor" class="space-y-6 hidden">
+        <div class="nexus-panel p-6 sm:p-7 rounded-2xl border border-[#162846] space-y-3">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md text-xs font-semibold bg-[#0f2244] border border-[#1e3a5f] text-blue-300">
+            <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+            Recursive Abstractive Processing for Tree-Organized Retrieval (RAPTOR)
+          </div>
+          <h2 class="text-xl sm:text-2xl font-bold text-white tracking-tight">
+            RAPTOR Recursive Hierarchy & Tree Search
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-4xl">
+            Hierarchical multi-layer clustering and summarization. Level 0 captures low-level raw chunks, Level 1 forms clustered topic summaries, and Level 2 synthesizes root enterprise themes.
+          </p>
+        </div>
+
+        <!-- RAPTOR Query & Controls -->
+        <div class="nexus-panel p-6 rounded-2xl border border-[#162846] space-y-4">
+          <div class="flex flex-col sm:flex-row gap-3">
+            <input
+              type="text"
+              id="raptor-query-input"
+              placeholder="Search across hierarchical abstraction layers (e.g. Enterprise Security Architecture & Compliance)..."
+              value="Security compliance and data governance"
+              class="flex-1 nexus-input px-4 py-3 rounded-xl text-sm"
+              onkeydown="if(event.key==='Enter') executeRaptorSearch()"
+            />
+            <button
+              id="raptor-btn"
+              onclick="executeRaptorSearch()"
+              class="btn-primary px-6 py-3 rounded-xl text-xs font-bold whitespace-nowrap flex items-center justify-center gap-2"
+            >
+              <span>🌲 Search RAPTOR Tree</span>
+            </button>
+            <button
+              onclick="loadRaptorTreeVisualization()"
+              class="btn-secondary px-4 py-3 rounded-xl text-xs font-bold whitespace-nowrap"
+            >
+              <span>🔄 Refresh Tree State</span>
+            </button>
+          </div>
+
+          <div class="flex items-center gap-4 pt-2 border-t border-[#162846] text-xs">
+            <span class="text-slate-400">Target Abstraction Level:</span>
+            <label class="flex items-center gap-1.5 cursor-pointer text-slate-300">
+              <input type="radio" name="raptor-level" value="all" checked class="accent-blue-600"> All Layers (Multi-Layer)
+            </label>
+            <label class="flex items-center gap-1.5 cursor-pointer text-slate-300">
+              <input type="radio" name="raptor-level" value="2" class="accent-blue-600"> Level 2 (Root Themes)
+            </label>
+            <label class="flex items-center gap-1.5 cursor-pointer text-slate-300">
+              <input type="radio" name="raptor-level" value="1" class="accent-blue-600"> Level 1 (Cluster Summaries)
+            </label>
+            <label class="flex items-center gap-1.5 cursor-pointer text-slate-300">
+              <input type="radio" name="raptor-level" value="0" class="accent-blue-600"> Level 0 (Raw Chunks)
+            </label>
+          </div>
+        </div>
+
+        <!-- RAPTOR Hierarchy Stats & Search Results -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <!-- Layer 2 Card -->
+          <div class="nexus-card p-5 rounded-2xl border border-[#1e3a5f] space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-0.5 rounded bg-blue-950 text-blue-300 border border-blue-800 text-[10px] font-bold font-mono">LEVEL 2</span>
+              <span id="raptor-count-l2" class="text-xs text-slate-400 font-mono">0 Nodes</span>
+            </div>
+            <h4 class="font-bold text-sm text-white">Root Enterprise Themes</h4>
+            <p class="text-xs text-slate-400">High-level systemic abstractions spanning global policies and enterprise architectures.</p>
+          </div>
+
+          <!-- Layer 1 Card -->
+          <div class="nexus-card p-5 rounded-2xl border border-[#1e3a5f] space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-0.5 rounded bg-cyan-950 text-cyan-300 border border-cyan-800 text-[10px] font-bold font-mono">LEVEL 1</span>
+              <span id="raptor-count-l1" class="text-xs text-slate-400 font-mono">0 Nodes</span>
+            </div>
+            <h4 class="font-bold text-sm text-white">Cluster Topic Summaries</h4>
+            <p class="text-xs text-slate-400">Medium-grain clustered summaries combining related sections, clauses, and sub-systems.</p>
+          </div>
+
+          <!-- Layer 0 Card -->
+          <div class="nexus-card p-5 rounded-2xl border border-[#1e3a5f] space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-0.5 rounded bg-slate-900 text-slate-300 border border-slate-700 text-[10px] font-bold font-mono">LEVEL 0</span>
+              <span id="raptor-count-l0" class="text-xs text-slate-400 font-mono">0 Nodes</span>
+            </div>
+            <h4 class="font-bold text-sm text-white">Base Granular Chunks</h4>
+            <p class="text-xs text-slate-400">Fine-grained atomic leaf chunks with exact paragraphs, formulas, and tabular rows.</p>
+          </div>
+        </div>
+
+        <!-- Hierarchical Search Results List -->
+        <div id="raptor-results-container" class="nexus-panel p-6 rounded-2xl border border-[#162846] space-y-4">
+          <h3 class="font-bold text-sm text-white">Hierarchical Retrieval Hits</h3>
+          <div id="raptor-hits-list" class="space-y-3">
+            <p class="text-xs text-slate-400">Run a search to explore hierarchical tree clusters.</p>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ================= TAB 4: SCHOLAR DOCGEN COMPILER ================= -->
+      <section id="tab-docgen" class="space-y-6 hidden">
+        <div class="nexus-panel p-6 sm:p-7 rounded-2xl border border-[#162846] space-y-3">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md text-xs font-semibold bg-[#0f2244] border border-[#1e3a5f] text-blue-300">
+            <span class="w-2 h-2 rounded-full bg-blue-400"></span>
+            Scholar DocGen • Multi-Style Citations (APA, IEEE, MLA, Chicago) • Export to Markdown, LaTeX, HTML
+          </div>
+          <h2 class="text-xl sm:text-2xl font-bold text-white tracking-tight">
+            Scholar Research Dossier & Document Compiler
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-4xl">
+            Compile verified RAG answers into formal academic, compliance, or technical whitepapers with standardized citation bibliographies, executive summaries, and risk matrices.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- Compiler Parameters Form -->
+          <div class="nexus-panel p-6 rounded-2xl border border-[#162846] space-y-4">
+            <h3 class="font-bold text-sm text-white">Dossier Specifications</h3>
+            
+            <div class="space-y-1">
+              <label class="block text-[11px] uppercase font-bold text-slate-400">Dossier Title</label>
+              <input type="text" id="docgen-title" value="Enterprise AI Governance & Operational Resiliency Whitepaper" class="w-full nexus-input px-3 py-2 rounded-xl text-xs" />
+            </div>
+
+            <div class="space-y-1">
+              <label class="block text-[11px] uppercase font-bold text-slate-400">Citation Style</label>
+              <select id="docgen-style" class="w-full nexus-input px-3 py-2 rounded-xl text-xs text-blue-300 font-semibold focus:outline-none">
+                <option value="APA" selected>APA (American Psychological Association)</option>
+                <option value="IEEE">IEEE (Institute of Electrical and Electronics Engineers)</option>
+                <option value="MLA">MLA (Modern Language Association)</option>
+                <option value="Chicago">Chicago Manual of Style</option>
+              </select>
+            </div>
+
+            <div class="space-y-1">
+              <label class="block text-[11px] uppercase font-bold text-slate-400">Output Format</label>
+              <select id="docgen-format" class="w-full nexus-input px-3 py-2 rounded-xl text-xs text-blue-300 font-semibold focus:outline-none">
+                <option value="markdown" selected>Markdown Document (.md)</option>
+                <option value="latex">LaTeX Academic Article (.tex)</option>
+                <option value="html">Styled HTML Webpage (.html)</option>
+              </select>
+            </div>
+
+            <div class="space-y-1">
+              <label class="block text-[11px] uppercase font-bold text-slate-400">Author / Organization</label>
+              <input type="text" id="docgen-author" value="NexusRAG Enterprise Architecture Board" class="w-full nexus-input px-3 py-2 rounded-xl text-xs" />
+            </div>
+
+            <button onclick="compileScholarDossier()" id="btn-compile-doc" class="w-full btn-primary py-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-2 shadow-sm mt-4">
+              <span>📜 Compile Research Dossier</span>
+            </button>
+          </div>
+
+          <!-- Document Preview Pane -->
+          <div class="lg:col-span-2 nexus-panel p-6 rounded-2xl border border-[#162846] space-y-4 flex flex-col justify-between">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between border-b border-[#162846] pb-3">
+                <div>
+                  <h3 class="font-bold text-sm text-white" id="docgen-preview-title">Compiled Document Output</h3>
+                  <span id="docgen-stats" class="text-[10px] text-slate-400 font-mono">0 Words • 0 Citations</span>
+                </div>
+                <div class="flex items-center gap-2 text-xs">
+                  <button onclick="copyDocGenContent()" class="btn-secondary px-3 py-1 rounded-lg text-xs font-bold">
+                    📋 Copy Text
+                  </button>
+                  <button onclick="downloadDocGenFile()" class="btn-primary px-3 py-1 rounded-lg text-xs font-bold">
+                    💾 Download File
+                  </button>
+                </div>
+              </div>
+              <textarea id="docgen-output-textarea" readonly rows="16" class="w-full nexus-input p-4 rounded-xl text-xs font-mono leading-relaxed text-slate-300 bg-[#081020] resize-none"></textarea>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ================= TAB 5: PDF INSPECTOR & LAB ================= -->
+      <section id="tab-pdf" class="space-y-6 hidden">
+        <div class="nexus-panel p-6 sm:p-7 rounded-2xl border border-[#162846] space-y-3">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md text-xs font-semibold bg-[#0f2244] border border-[#1e3a5f] text-blue-300">
+            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+            Rust Core Engine • Sub-10ms Gatekeeper • Layout-Aware Markdown • Zero-Cost Table Retention
+          </div>
+          <h2 class="text-xl sm:text-2xl font-bold text-white tracking-tight">
+            Firecrawl PDF-Inspector & High-Precision Extraction Lab
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-4xl">
+            Instant document classification (&lt;10ms), dual-mode table retention, multi-column reading order recovery, and selective OCR routing. Extracts position-aware clean Markdown without costly third-party OCR APIs.
+          </p>
+        </div>
+
+        <!-- Upload & Preset Selection Card -->
+        <div class="nexus-panel p-6 sm:p-7 rounded-2xl border border-[#162846] space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h3 class="text-base font-bold text-white">Upload or Inspect Enterprise PDF</h3>
+              <p class="text-xs text-slate-400">Select a local PDF file or load an enterprise sample standard.</p>
+            </div>
+            <!-- Preset Buttons -->
+            <div class="flex flex-wrap items-center gap-2 text-xs">
+              <span class="text-slate-400 font-semibold">Sample Standards:</span>
+              <button onclick="loadSamplePdfPreset('ai_governance')" class="px-3 py-1.5 rounded-lg bg-[#0d1f3c] border border-[#1e3a5f] text-blue-200 hover:bg-[#163360] hover:text-white">
+                🤖 AI Governance SEC-909
+              </button>
+              <button onclick="loadSamplePdfPreset('sre_dr_matrix')" class="px-3 py-1.5 rounded-lg bg-[#0d1f3c] border border-[#1e3a5f] text-blue-200 hover:bg-[#163360] hover:text-white">
+                ⚡ SRE Disaster Recovery Matrix
+              </button>
+              <button onclick="loadSamplePdfPreset('hr_benefits_matrix')" class="px-3 py-1.5 rounded-lg bg-[#0d1f3c] border border-[#1e3a5f] text-blue-200 hover:bg-[#163360] hover:text-white">
+                👥 Executive PTO Schedule
+              </button>
+            </div>
+          </div>
+
+          <!-- Drag and Drop Zone -->
+          <div
+            id="pdf-dropzone"
+            ondragover="handleDragOver(event)"
+            ondragleave="handleDragLeave(event)"
+            ondrop="handleFileDrop(event)"
+            class="dropzone p-8 rounded-2xl bg-[#081020] text-center cursor-pointer space-y-3"
+            onclick="document.getElementById('pdf-file-input').click()"
+          >
+            <input type="file" id="pdf-file-input" accept=".pdf" class="hidden" onchange="handleFileSelected(event)">
+            <div class="w-12 h-12 mx-auto rounded-xl bg-blue-900/60 border border-blue-600/40 flex items-center justify-center text-2xl">
+              📄
+            </div>
+            <div class="space-y-1">
+              <p class="text-sm font-bold text-white" id="pdf-filename-display">Drag & drop your PDF file here, or click to browse</p>
+              <p class="text-xs text-slate-400">Supports text-based, multi-column, and tabular enterprise documents</p>
+            </div>
+          </div>
+
+          <!-- Controls Bar -->
+          <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-[#162846]">
+            <div class="flex items-center gap-3 text-xs">
+              <span class="text-slate-400">Target Vault:</span>
+              <select id="pdf-target-vault" class="nexus-input px-3 py-1.5 rounded-xl text-xs text-blue-300 font-semibold focus:outline-none">
+                <option value="pdf_standards">📑 PDF Standards & Lab</option>
+                <option value="all">🌐 All Vaults (Unified)</option>
+                <option value="infosec_compliance">🛡️ InfoSec & HIPAA</option>
+                <option value="sre_infra">⚡ SRE & SLA Specs</option>
+                <option value="hr_benefits">👥 HR & Benefits</option>
+                <option value="procurement_quantum">🔬 AI & Quantum</option>
+              </select>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-2.5">
+              <button onclick="runPdfInspection()" id="btn-inspect-pdf" class="btn-secondary px-4 py-2 rounded-xl text-xs font-bold">
+                🔍 Inspect (&lt;10ms)
+              </button>
+              <button onclick="runPdfExtraction()" id="btn-extract-pdf" class="btn-secondary px-4 py-2 rounded-xl text-xs font-bold">
+                📝 Extract Markdown
+              </button>
+              <button onclick="runPdfUploadAndIngest()" id="btn-ingest-pdf" class="btn-primary px-5 py-2 rounded-xl text-xs font-bold shadow-sm">
+                📥 Ingest to Vault
+              </button>
+              <button onclick="runLivePdfBenchmark()" id="btn-bench-pdf" class="btn-emerald px-3.5 py-2 rounded-xl text-xs font-bold">
+                🚀 Benchmark Engine
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Inspection Diagnostic Cards -->
+        <div id="pdf-diagnostics-section" class="grid grid-cols-1 sm:grid-cols-4 gap-4 hidden">
+          <!-- Type & Confidence -->
+          <div class="nexus-card p-5 rounded-2xl border border-[#1e3a5f] space-y-2">
+            <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Document Type</span>
+            <div class="flex items-center gap-2">
+              <span id="diag-pdf-type" class="px-2.5 py-0.5 rounded bg-emerald-950/60 border border-emerald-500/40 text-emerald-400 font-mono font-bold text-xs uppercase">TEXT_BASED</span>
+              <span id="diag-confidence" class="text-xs text-slate-300 font-mono">100% Conf</span>
+            </div>
+            <p class="text-[11px] text-slate-400">Total Pages: <strong id="diag-pages" class="text-white">1</strong></p>
+          </div>
+
+          <!-- Latency -->
+          <div class="nexus-card p-5 rounded-2xl border border-[#1e3a5f] space-y-2">
+            <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Parsing Latency</span>
+            <div class="text-2xl font-bold text-blue-300 font-mono" id="diag-latency">0.6 ms</div>
+            <p class="text-[11px] text-slate-400">Speedup: <strong id="diag-speedup" class="text-emerald-400">1100x vs OCR</strong></p>
+          </div>
+
+          <!-- Tables & Columns -->
+          <div class="nexus-card p-5 rounded-2xl border border-[#1e3a5f] space-y-2">
+            <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Layout & Structure</span>
+            <div class="text-sm font-bold text-white flex items-center gap-2">
+              <span>📊 <strong id="diag-tables" class="text-blue-300">1</strong> Table(s)</span>
+              <span>📑 <strong id="diag-headings" class="text-slate-200">4</strong> Headings</span>
+            </div>
+            <p class="text-[11px] text-slate-400">Complex Layout: <strong id="diag-layout" class="text-slate-200">Yes</strong></p>
+          </div>
+
+          <!-- OCR Routing -->
+          <div class="nexus-card p-5 rounded-2xl border border-[#1e3a5f] space-y-2">
+            <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">OCR Routing Action</span>
+            <div class="text-xs font-bold font-mono px-2 py-0.5 rounded-md inline-block bg-blue-950 border border-blue-800 text-blue-300" id="diag-ocr-action">
+              NATIVE_PASS
+            </div>
+            <p class="text-[11px] text-slate-400">Pages Needing OCR: <strong id="diag-ocr-pages" class="text-emerald-400">0 (100% Saved)</strong></p>
+          </div>
+        </div>
+
+        <!-- Markdown & Rendered Table Viewer -->
+        <div id="pdf-viewer-section" class="nexus-panel p-6 rounded-2xl border border-[#162846] space-y-4 hidden">
+          <div class="flex items-center justify-between border-b border-[#162846] pb-3">
+            <div class="flex items-center gap-3">
+              <h3 class="font-bold text-sm text-white" id="pdf-viewer-title">Structured Markdown Preview</h3>
+              <span id="pdf-viewer-stats" class="text-[10px] text-slate-400 font-mono"></span>
+            </div>
+            <div class="flex items-center gap-2 text-xs">
+              <button onclick="togglePdfPreviewMode('rendered')" id="btn-preview-rendered" class="btn-primary px-3 py-1 rounded-lg font-bold">
+                Rendered HTML & Tables
+              </button>
+              <button onclick="togglePdfPreviewMode('raw')" id="btn-preview-raw" class="btn-secondary px-3 py-1 rounded-lg font-bold">
+                Raw Markdown Code
+              </button>
+            </div>
+          </div>
+
+          <!-- Rendered View -->
+          <div id="pdf-rendered-pane" class="rendered-table p-4 rounded-xl bg-[#081020] border border-[#162846] text-xs text-slate-200 space-y-3 overflow-x-auto max-h-96"></div>
+
+          <!-- Raw Markdown View -->
+          <div id="pdf-raw-pane" class="hidden">
+            <textarea id="pdf-raw-textarea" readonly rows="12" class="w-full nexus-input p-4 rounded-xl text-xs font-mono leading-relaxed text-slate-300 bg-[#081020]"></textarea>
+          </div>
+        </div>
+
+        <!-- Benchmark Results Card -->
+        <div id="pdf-benchmark-modal" class="nexus-panel p-6 rounded-2xl border border-[#162846] space-y-4 hidden">
+          <div class="flex items-center justify-between border-b border-[#162846] pb-3">
+            <h3 class="font-bold text-sm text-white">🚀 Firecrawl PDF-Inspector Benchmark Results</h3>
+            <span class="text-xs text-emerald-400 font-mono font-bold">BENCHMARK COMPLETE</span>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center text-xs">
+            <div class="nexus-card p-4 rounded-xl border border-[#1e3a5f]">
+              <span class="text-slate-400 block text-[10px] uppercase font-bold">PDF Inspector Latency</span>
+              <strong id="bench-lat" class="text-blue-300 font-mono text-xl">-- ms</strong>
+            </div>
+            <div class="nexus-card p-4 rounded-xl border border-[#1e3a5f]">
+              <span class="text-slate-400 block text-[10px] uppercase font-bold">Estimated Cloud OCR Latency</span>
+              <strong id="bench-ocr-lat" class="text-slate-300 font-mono text-xl">-- ms</strong>
+            </div>
+            <div class="nexus-card p-4 rounded-xl border border-[#1e3a5f]">
+              <span class="text-slate-400 block text-[10px] uppercase font-bold">Speedup Factor</span>
+              <strong id="bench-speedup" class="text-emerald-400 font-mono text-xl">--</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ================= TAB 6: A/B STRATEGY ARENA ================= -->
+      <section id="tab-arena" class="space-y-6 hidden">
+        <div class="nexus-panel p-6 sm:p-7 rounded-2xl border border-[#162846] space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h2 class="text-xl font-bold text-white">A/B Strategy Experimentation Arena</h2>
+              <p class="text-xs text-slate-400">Head-to-head empirical comparison of Dense Vector Only vs NexusRAG Hybrid.</p>
+            </div>
+            <button onclick="runArenaComparison()" id="arena-run-btn" class="btn-primary px-6 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2">
               <span>🚀 Execute A/B Benchmark</span>
             </button>
           </div>
 
-          <!-- Arena Scoreboard Comparison -->
-          <div id="arena-results" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <!-- Strategy A Card -->
-            <div class="glass-card p-6 rounded-3xl border border-blue-500/30 space-y-4 relative">
-              <div class="flex items-center justify-between border-b border-white/10 pb-3">
+          <!-- Arena Split-Pane Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Strategy A -->
+            <div class="nexus-card p-6 rounded-2xl border border-[#1e3a5f] space-y-4">
+              <div class="flex items-center justify-between border-b border-[#162846] pb-3">
                 <div>
-                  <span class="text-[10px] px-2.5 py-0.5 rounded-full bg-blue-500/20 text-blue-300 font-bold uppercase">Strategy A</span>
-                  <h3 class="text-base font-bold text-white mt-1">Dense Vector Semantic Only</h3>
+                  <span class="text-[10px] px-2.5 py-0.5 rounded-md bg-[#081426] border border-[#162846] text-slate-300 font-bold uppercase font-mono">Strategy A</span>
+                  <h3 class="text-base font-bold text-white mt-1">Dense Semantic Vector Only</h3>
                 </div>
                 <div class="text-right font-mono text-xs text-slate-400">
                   <span>Latency: <strong id="arena-lat-a" class="text-blue-300">-- ms</strong></span>
                 </div>
               </div>
-              <p class="text-xs text-slate-300 font-mono bg-black/40 p-3 rounded-xl border border-white/5 line-clamp-4" id="arena-ans-a">Awaiting benchmark execution...</p>
+              <p class="text-xs text-slate-300 font-mono bg-[#081020] p-3 rounded-xl border border-[#162846] line-clamp-4" id="arena-ans-a">Awaiting benchmark execution...</p>
               <div class="grid grid-cols-2 gap-3 pt-2 text-center text-xs">
-                <div class="p-2.5 rounded-xl bg-white/5 border border-white/5">
-                  <span class="text-slate-400 block text-[10px]">Faithfulness</span>
-                  <strong id="arena-faith-a" class="text-blue-300 text-lg">--%</strong>
+                <div class="p-2.5 rounded-xl bg-[#081020] border border-[#162846]">
+                  <span class="text-slate-400 block text-[10px] uppercase font-bold">Faithfulness</span>
+                  <strong id="arena-faith-a" class="text-emerald-400 text-lg font-mono">--%</strong>
                 </div>
-                <div class="p-2.5 rounded-xl bg-white/5 border border-white/5">
-                  <span class="text-slate-400 block text-[10px]">Citations</span>
-                  <strong id="arena-cit-a" class="text-white text-lg">--</strong>
+                <div class="p-2.5 rounded-xl bg-[#081020] border border-[#162846]">
+                  <span class="text-slate-400 block text-[10px] uppercase font-bold">Citations</span>
+                  <strong id="arena-cit-a" class="text-white text-lg font-mono">--</strong>
                 </div>
               </div>
             </div>
 
-            <!-- Strategy B Card -->
-            <div class="glass-card p-6 rounded-3xl border border-purple-500/30 space-y-4 relative">
-              <div class="flex items-center justify-between border-b border-white/10 pb-3">
+            <!-- Strategy B -->
+            <div class="nexus-card p-6 rounded-2xl border border-blue-600/50 bg-[#0f2244]/40 space-y-4">
+              <div class="flex items-center justify-between border-b border-[#162846] pb-3">
                 <div>
-                  <span class="text-[10px] px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-300 font-bold uppercase">Strategy B</span>
+                  <span class="text-[10px] px-2.5 py-0.5 rounded-md bg-blue-950 border border-blue-800 text-blue-300 font-bold uppercase font-mono">Strategy B</span>
                   <h3 class="text-base font-bold text-white mt-1">NexusRAG Hybrid (RRF + CRAG + Rerank)</h3>
                 </div>
                 <div class="text-right font-mono text-xs text-slate-400">
-                  <span>Latency: <strong id="arena-lat-b" class="text-purple-300">-- ms</strong></span>
+                  <span>Latency: <strong id="arena-lat-b" class="text-blue-300">-- ms</strong></span>
                 </div>
               </div>
-              <p class="text-xs text-slate-300 font-mono bg-black/40 p-3 rounded-xl border border-white/5 line-clamp-4" id="arena-ans-b">Awaiting benchmark execution...</p>
+              <p class="text-xs text-slate-300 font-mono bg-[#081020] p-3 rounded-xl border border-[#162846] line-clamp-4" id="arena-ans-b">Awaiting benchmark execution...</p>
               <div class="grid grid-cols-2 gap-3 pt-2 text-center text-xs">
-                <div class="p-2.5 rounded-xl bg-white/5 border border-white/5">
-                  <span class="text-slate-400 block text-[10px]">Faithfulness</span>
-                  <strong id="arena-faith-b" class="text-emerald-400 text-lg">--%</strong>
+                <div class="p-2.5 rounded-xl bg-[#081020] border border-[#162846]">
+                  <span class="text-slate-400 block text-[10px] uppercase font-bold">Faithfulness</span>
+                  <strong id="arena-faith-b" class="text-emerald-400 text-lg font-mono">--%</strong>
                 </div>
-                <div class="p-2.5 rounded-xl bg-white/5 border border-white/5">
-                  <span class="text-slate-400 block text-[10px]">Citations</span>
-                  <strong id="arena-cit-b" class="text-white text-lg">--</strong>
+                <div class="p-2.5 rounded-xl bg-[#081020] border border-[#162846]">
+                  <span class="text-slate-400 block text-[10px] uppercase font-bold">Citations</span>
+                  <strong id="arena-cit-b" class="text-white text-lg font-mono">--</strong>
                 </div>
               </div>
             </div>
           </div>
 
           <!-- Winner Banner -->
-          <div id="arena-winner-banner" class="hidden p-4 rounded-2xl bg-gradient-to-r from-indigo-950/60 to-purple-950/60 border border-indigo-500/40 text-center text-xs font-bold text-white">
-            🏆 Winner: <span id="arena-winner-text" class="text-gradient"></span> (<span id="arena-delta-text"></span> higher accuracy)
+          <div id="arena-winner-banner" class="hidden p-4 rounded-xl bg-[#0d234a] border border-blue-500/40 text-center text-xs font-bold text-white">
+            🏆 Winner: <span id="arena-winner-text" class="text-blue-300 font-mono"></span> (<span id="arena-delta-text" class="text-emerald-400 font-mono"></span> higher accuracy)
           </div>
         </div>
       </section>
 
 
-      <!-- ================= TAB 3: POLICY TIMELINE & SLA EXTRACTOR ================= -->
+      <!-- ================= TAB 7: CRYPTOGRAPHIC AUDIT VAULT ================= -->
+      <section id="tab-audit" class="space-y-6 hidden">
+        <div class="nexus-panel p-6 sm:p-7 rounded-2xl border border-[#162846] space-y-3">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md text-xs font-semibold bg-[#0f2244] border border-[#1e3a5f] text-blue-300">
+            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+            SHA-256 HMAC Signatures • Tamper-Evident Ledger • Verifiable Certificate Chain
+          </div>
+          <h2 class="text-xl sm:text-2xl font-bold text-white tracking-tight">
+            Cryptographic Audit Vault & Verification Center
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-4xl">
+            Every synthesized answer, cited chunk set, and evaluation score is cryptographically signed and recorded in an immutable append-only audit ledger. Verify certificates or inspect audit logs for compliance.
+          </p>
+        </div>
+
+        <!-- Verification Input Card -->
+        <div class="nexus-panel p-6 rounded-2xl border border-[#162846] space-y-4">
+          <h3 class="font-bold text-sm text-white">Verify Cryptographic Audit Certificate</h3>
+          <div class="flex flex-col sm:flex-row gap-3">
+            <input
+              type="text"
+              id="audit-verify-id"
+              placeholder="Enter Audit ID (e.g. audit_20260827_... or cert hash)..."
+              class="flex-1 nexus-input px-4 py-3 rounded-xl text-xs font-mono"
+            />
+            <button onclick="verifyAuditCertificateId()" class="btn-primary px-6 py-3 rounded-xl text-xs font-bold whitespace-nowrap">
+              🛡️ Verify Integrity
+            </button>
+            <button onclick="loadAuditLogsList()" class="btn-secondary px-4 py-3 rounded-xl text-xs font-bold whitespace-nowrap">
+              🔄 Refresh Logs
+            </button>
+          </div>
+          <div id="audit-verify-status" class="hidden p-4 rounded-xl bg-[#081020] border border-[#162846] text-xs"></div>
+        </div>
+
+        <!-- Recent Audit Ledger Logs -->
+        <div class="nexus-panel p-6 rounded-2xl border border-[#162846] space-y-4">
+          <h3 class="font-bold text-sm text-white">Tamper-Evident Audit Ledger (Recent Queries)</h3>
+          <div id="audit-logs-container" class="space-y-2">
+            <p class="text-xs text-slate-400">Loading cryptographic audit ledger...</p>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ================= TAB 8: MCP (MODEL CONTEXT PROTOCOL) HUB ================= -->
+      <section id="tab-mcp" class="space-y-6 hidden">
+        <div class="nexus-panel p-6 sm:p-7 rounded-2xl border border-[#162846] space-y-3">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md text-xs font-semibold bg-[#0f2244] border border-[#1e3a5f] text-blue-300">
+            <span class="w-2 h-2 rounded-full bg-blue-400"></span>
+            Standardized Agent Protocol • Tool Registry • Dynamic Execution Sandbox
+          </div>
+          <h2 class="text-xl sm:text-2xl font-bold text-white tracking-tight">
+            Model Context Protocol (MCP) Tools Hub
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-4xl">
+            Integrate NexusRAG with autonomous agentic systems (Claude Desktop, Cursor, LangChain, AutoGen) via standardized MCP endpoints. Test and execute registered tools interactively.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- Tools Registry List -->
+          <div class="nexus-panel p-6 rounded-2xl border border-[#162846] space-y-4">
+            <h3 class="font-bold text-sm text-white">Registered MCP Tools</h3>
+            <div id="mcp-tools-list" class="space-y-2.5">
+              <p class="text-xs text-slate-400">Fetching MCP schema...</p>
+            </div>
+          </div>
+
+          <!-- Tool Runner Playground -->
+          <div class="lg:col-span-2 nexus-panel p-6 rounded-2xl border border-[#162846] space-y-4 flex flex-col justify-between">
+            <div class="space-y-4">
+              <div class="flex items-center justify-between border-b border-[#162846] pb-3">
+                <h3 class="font-bold text-sm text-white" id="mcp-selected-tool-name">MCP Tool Runner</h3>
+                <span class="text-[10px] text-blue-300 font-mono font-bold bg-[#0f2244] px-2 py-0.5 rounded">JSON-RPC 2.0</span>
+              </div>
+              
+              <div class="space-y-1">
+                <label class="block text-[11px] uppercase font-bold text-slate-400">Tool Arguments (JSON)</label>
+                <textarea id="mcp-args-input" rows="5" class="w-full nexus-input p-3 rounded-xl text-xs font-mono leading-relaxed bg-[#081020]">{ "query": "What is SEC-909?", "vault_id": "all" }</textarea>
+              </div>
+
+              <button onclick="executeMcpToolCall()" id="btn-call-mcp" class="btn-primary px-6 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2">
+                <span>⚡ Execute MCP Tool Call</span>
+              </button>
+
+              <div class="space-y-1 pt-2">
+                <label class="block text-[11px] uppercase font-bold text-slate-400">Response Payload</label>
+                <textarea id="mcp-response-output" readonly rows="8" class="w-full nexus-input p-3 rounded-xl text-xs font-mono leading-relaxed text-slate-300 bg-[#081020] resize-none"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ================= TAB 9: POLICY TIMELINE ================= -->
       <section id="tab-timeline" class="space-y-6 hidden">
-        <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-white/10 space-y-6">
+        <div class="nexus-panel p-6 sm:p-7 rounded-2xl border border-[#162846] space-y-6">
           <div class="flex items-center justify-between">
             <div>
               <h2 class="text-xl font-bold text-white">⏱️ Enterprise Policy Timeline & SLA Benchmarks</h2>
               <p class="text-xs text-slate-400">Automated extraction of time-critical SLAs, filing deadlines, and recurring cycles across all knowledge vaults.</p>
             </div>
-            <button onclick="loadPolicyTimelines()" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold text-indigo-300 bg-indigo-500/10 border border-indigo-500/30 hover:bg-indigo-500/20">
+            <button onclick="loadPolicyTimelines()" class="btn-secondary px-3.5 py-1.5 rounded-xl text-xs font-semibold">
               🔄 Refresh Timelines
             </button>
           </div>
@@ -426,9 +1111,9 @@
       </section>
 
 
-      <!-- ================= TAB 4: ENTITY KNOWLEDGE GRAPH ================= -->
+      <!-- ================= TAB 10: ENTITY KNOWLEDGE GRAPH ================= -->
       <section id="tab-graph" class="space-y-6 hidden">
-        <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-white/10 space-y-4">
+        <div class="nexus-panel p-6 sm:p-7 rounded-2xl border border-[#162846] space-y-4">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
               <h2 class="text-xl font-bold text-white">Entity & Document Knowledge Graph</h2>
@@ -436,25 +1121,25 @@
             </div>
             <!-- Legend -->
             <div class="flex flex-wrap items-center gap-3 text-xs">
-              <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-indigo-500"></span> Documents</span>
-              <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-purple-500"></span> Chunks</span>
-              <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-pink-500"></span> Forms</span>
-              <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-cyan-400"></span> Standards</span>
+              <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-blue-500"></span> Documents</span>
+              <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-indigo-400"></span> Chunks</span>
+              <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-cyan-400"></span> Forms</span>
+              <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-teal-400"></span> Standards</span>
               <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-emerald-400"></span> Acronyms</span>
             </div>
           </div>
 
-          <div class="relative w-full h-[540px] bg-black/60 rounded-2xl border border-white/10 overflow-hidden flex items-center justify-center">
+          <div class="relative w-full h-[540px] bg-[#060b17] rounded-2xl border border-[#162846] overflow-hidden flex items-center justify-center">
             <canvas id="graph-canvas" class="w-full h-full cursor-grab active:cursor-grabbing"></canvas>
-            <div id="graph-tooltip" class="absolute hidden p-2.5 rounded-xl bg-slate-900/90 border border-white/20 text-xs text-white pointer-events-none shadow-2xl"></div>
+            <div id="graph-tooltip" class="absolute hidden p-2.5 rounded-xl bg-[#0a1224] border border-[#1e3a5f] text-xs text-white pointer-events-none shadow-2xl"></div>
           </div>
         </div>
       </section>
 
 
-      <!-- ================= TAB 5: RAG TRIAD OBSERVABILITY ================= -->
+      <!-- ================= TAB 11: RAG TRIAD OBSERVABILITY ================= -->
       <section id="tab-triad" class="space-y-6 hidden">
-        <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-white/10 space-y-6">
+        <div class="nexus-panel p-6 sm:p-7 rounded-2xl border border-[#162846] space-y-6">
           <div>
             <h2 class="text-xl font-bold text-white">RAG Triad Observability & Faithfulness Metrics</h2>
             <p class="text-xs text-slate-400">Formal mathematical assessment of Groundedness, Context Relevance, and Answer Alignment.</p>
@@ -463,23 +1148,23 @@
           <!-- Gauges Grid -->
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
             <!-- Faithfulness -->
-            <div class="glass-card p-6 rounded-2xl border border-white/10 text-center space-y-3">
+            <div class="nexus-card p-6 rounded-2xl border border-[#1e3a5f] text-center space-y-3">
               <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Faithfulness / Groundedness</span>
-              <div class="text-3xl font-extrabold text-emerald-400 font-mono" id="triad-faithfulness">100%</div>
+              <div class="text-3xl font-bold text-emerald-400 font-mono" id="triad-faithfulness">100%</div>
               <p class="text-[11px] text-slate-400">Percentage of factual statements strictly verified by cited source chunks.</p>
             </div>
 
             <!-- Context Relevance -->
-            <div class="glass-card p-6 rounded-2xl border border-white/10 text-center space-y-3">
+            <div class="nexus-card p-6 rounded-2xl border border-[#1e3a5f] text-center space-y-3">
               <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Context Relevance</span>
-              <div class="text-3xl font-extrabold text-indigo-400 font-mono" id="triad-context">94%</div>
+              <div class="text-3xl font-bold text-blue-400 font-mono" id="triad-context">94%</div>
               <p class="text-[11px] text-slate-400">Signal-to-noise ratio of retrieved candidate chunks relative to prompt.</p>
             </div>
 
             <!-- Answer Relevance -->
-            <div class="glass-card p-6 rounded-2xl border border-white/10 text-center space-y-3">
+            <div class="nexus-card p-6 rounded-2xl border border-[#1e3a5f] text-center space-y-3">
               <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Answer Relevance</span>
-              <div class="text-3xl font-extrabold text-purple-400 font-mono" id="triad-answer">98%</div>
+              <div class="text-3xl font-bold text-cyan-400 font-mono" id="triad-answer">98%</div>
               <p class="text-[11px] text-slate-400">Direct alignment between the user's intent and synthesized output.</p>
             </div>
           </div>
@@ -491,7 +1176,7 @@
           </div>
 
           <!-- Latency Waterfall Breakdown -->
-          <div class="space-y-3 pt-4 border-t border-white/10">
+          <div class="space-y-3 pt-4 border-t border-[#162846]">
             <h3 class="text-sm font-bold text-white">Pipeline Latency Breakdown (ms)</h3>
             <div id="latency-waterfall" class="grid grid-cols-2 sm:grid-cols-5 gap-3 text-xs font-mono"></div>
           </div>
@@ -499,35 +1184,45 @@
       </section>
 
 
-      <!-- ================= TAB 6: MULTI-COLLECTION VAULT MANAGER ================= -->
+      <!-- ================= TAB 12: VAULTS & MULTI-FORMAT INGESTION ================= -->
       <section id="tab-vaults" class="space-y-6 hidden">
-        <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-white/10 space-y-6">
+        <div class="nexus-panel p-6 sm:p-7 rounded-2xl border border-[#162846] space-y-6">
           <div class="flex items-center justify-between">
             <div>
-              <h2 class="text-xl font-bold text-white">Departmental Knowledge Vaults</h2>
+              <h2 class="text-xl font-bold text-white">Departmental Knowledge Vaults & Ingestion Studio</h2>
               <p class="text-xs text-slate-400">Isolated enterprise collections with independent hybrid indices and knowledge graphs.</p>
             </div>
           </div>
 
-          <!-- Vaults Cards -->
+          <!-- Vaults Cards Grid -->
           <div id="vaults-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
 
-          <!-- Ingestion Form -->
-          <div class="pt-6 border-t border-white/10 space-y-4">
-            <h3 class="text-base font-bold text-white">Ingest New Document into Active Vault</h3>
-            <form id="vault-ingest-form" onsubmit="handleVaultIngest(event)" class="space-y-4">
-              <div>
-                <label class="block text-xs font-semibold uppercase text-slate-300 mb-1">Document Title</label>
-                <input type="text" id="ingest-title" required placeholder="e.g. AI Governance Framework 2026" class="w-full glass-input px-3.5 py-2.5 rounded-xl text-xs" />
+          <!-- Multi-Format Ingestion Studio -->
+          <div class="pt-6 border-t border-[#162846] space-y-4">
+            <h3 class="text-base font-bold text-white">Ingest File into Active Vault (Markdown, TXT, JSON, CSV, PDF)</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <!-- File Upload Card -->
+              <div class="nexus-card p-5 rounded-xl border border-[#1e3a5f] space-y-3">
+                <h4 class="font-bold text-xs uppercase text-slate-300">Option A: Direct File Upload</h4>
+                <input type="file" id="general-file-input" accept=".md,.txt,.json,.csv,.pdf" class="w-full text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-blue-700 file:text-white hover:file:bg-blue-600 cursor-pointer">
+                <button onclick="handleMultiFormatUpload()" class="btn-primary w-full py-2 rounded-xl text-xs font-bold mt-2">
+                  📤 Upload & Process Document
+                </button>
               </div>
-              <div>
-                <label class="block text-xs font-semibold uppercase text-slate-300 mb-1">Content (Supports Markdown # Headers)</label>
-                <textarea id="ingest-content" rows="6" required placeholder="# Section 1: Governance Directives&#10;Enter policy text, form numbers, and operational metrics..." class="w-full glass-input px-3.5 py-2.5 rounded-xl text-xs font-mono"></textarea>
+
+              <!-- Manual Ingestion Card -->
+              <div class="nexus-card p-5 rounded-xl border border-[#1e3a5f] space-y-3">
+                <h4 class="font-bold text-xs uppercase text-slate-300">Option B: Manual Text / Markdown</h4>
+                <form id="vault-ingest-form" onsubmit="handleVaultIngest(event)" class="space-y-3">
+                  <input type="text" id="ingest-title" required placeholder="Document Title (e.g. AI Risk Standard 2026)" class="w-full nexus-input px-3 py-2 rounded-xl text-xs" />
+                  <textarea id="ingest-content" rows="4" required placeholder="# Section 1: Directives&#10;Enter policy rules, numbers, and operational constraints..." class="w-full nexus-input px-3 py-2 rounded-xl text-xs font-mono"></textarea>
+                  <button type="submit" id="ingest-submit-btn" class="btn-secondary w-full py-2 rounded-xl text-xs font-bold">
+                    📥 Ingest & Rebuild Index
+                  </button>
+                </form>
               </div>
-              <button type="submit" id="ingest-submit-btn" class="glow-btn px-5 py-2.5 rounded-xl text-xs font-bold text-white shadow-lg flex items-center gap-2">
-                <span>📥 Ingest & Rebuild Index</span>
-              </button>
-            </form>
+            </div>
           </div>
         </div>
       </section>
@@ -535,15 +1230,22 @@
     </main>
   </div>
 
-  <!-- Global Footer -->
-  <footer class="w-full border-t border-white/10 bg-black/70 py-6 px-4 sm:px-8 mt-12">
-    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
-      <div>
-        <strong class="text-white">NexusRAG Enterprise 4.0</strong> • Self-Reflective CRAG & Experimentation Arena
+  <!-- Global Enterprise Footer -->
+  <footer class="w-full border-t border-[#162846] bg-[#070d1d] py-5 px-4 sm:px-8 mt-12 text-xs text-slate-400">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <strong class="text-white">NexusRAG Enterprise v0.2.0</strong>
+        <span>•</span>
+        <span>ACID SQLite Persistence</span>
+        <span>•</span>
+        <span>Firecrawl PDF-Inspector</span>
+        <span>•</span>
+        <span>RAPTOR & Multi-Hop</span>
       </div>
       <div class="flex items-center gap-4">
-        <a href="/docs" target="_blank" class="hover:text-white transition-colors">Swagger API Docs</a>
-        <a href="/api/v1/health" target="_blank" class="hover:text-white transition-colors">System Health</a>
+        <a href="/docs" target="_blank" class="hover:text-white transition-colors text-blue-300">API Documentation</a>
+        <a href="/api/v1/health" target="_blank" class="hover:text-white transition-colors text-blue-300">Health Endpoint</a>
+        <span class="text-slate-500 font-mono">Status: 200 OK</span>
       </div>
     </div>
   </footer>

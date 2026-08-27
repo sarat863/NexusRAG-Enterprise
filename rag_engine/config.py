@@ -23,5 +23,10 @@ class RAGConfig(BaseModel):
     # Storage paths
     data_dir: str = os.path.join(os.getcwd(), "data")
     index_file: str = os.path.join(os.getcwd(), "data", "hybrid_index.json")
+    
+    # PDF Inspector & OCR routing
+    enable_pdf_inspector: bool = True
+    pdf_ocr_routing_threshold: float = 0.5
+    preserve_table_chunks: bool = True
 
 default_config = RAGConfig()

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-NexusRAG Enterprise 4.0 - Live Verification Suite on Brand-New Diverse Scenarios.
+NexusRAG Enterprise v0.2.0 - Live Verification Suite on Brand-New Diverse Scenarios.
 """
 
 import json
