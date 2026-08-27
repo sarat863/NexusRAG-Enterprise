@@ -1,243 +1,367 @@
-# 🌌 AetherArt AI Creative Studio & Community Platform 2.0
-
 <div align="center">
 
-![React](https://img.shields.io/badge/React-19.0-61DAFB?style=for-the-badge&logo=react&logoColor=black)
-![Vite](https://img.shields.io/badge/Vite-6.3-646CFF?style=for-the-badge&logo=vite&logoColor=white)
-![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
-![Node.js](https://img.shields.io/badge/Node.js-Express_5-339933?style=for-the-badge&logo=node.js&logoColor=white)
-![MongoDB](https://img.shields.io/badge/MongoDB-Mongoose_8-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
-![AI Models](https://img.shields.io/badge/Engines-Flux.1%20%7C%20SDXL%20%7C%20DALL·E_3-8B5CF6?style=for-the-badge&logo=openai&logoColor=white)
+# ⚡ NexusRAG Enterprise 4.0
+### Autonomous RAG Intelligence • CRAG Self-Reflection • Observability Control Center
 
-**A next-generation AI image generation, prompt engineering laboratory, post-processing canvas studio, and community showcase platform.**
+[![Python Version](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
+[![CRAG Engine](https://img.shields.io/badge/CRAG-Self--Reflection%20%26%20Grading-EF4444?style=for-the-badge)](https://arxiv.org/abs/2401.15884)
+[![Hybrid Retrieval](https://img.shields.io/badge/Retrieval-Dense%20%2B%20BM25%20(Weighted%20RRF)-8B5CF6?style=for-the-badge)](#-3-weighted-reciprocal-rank-fusion-rrf--cross-encoder-reranking)
+[![Real-Time Streaming](https://img.shields.io/badge/Streaming-SSE%20Token--by--Token-06B6D4?style=for-the-badge)](#-7-real-time-sse-token-streaming)
+[![Knowledge Graph](https://img.shields.io/badge/Knowledge%20Graph-Entity%20%26%20Relation%20Canvas-EC4899?style=for-the-badge)](#-5-entity-knowledge-graph--relationship-canvas)
+[![RAGOps Observability](https://img.shields.io/badge/RAGOps-Faithfulness%20%26%20Groundedness-10B981?style=for-the-badge)](#-6-rag-triad-observability--faithfulness-evaluation)
+[![Compliance Audit](https://img.shields.io/badge/Audit-SHA256%20Cryptographic%20Signatures-F59E0B?style=for-the-badge)](#-8-cryptographic-compliance-audit-certification)
 
-[Features](#-key-features--innovations) • [Architecture](#-system-architecture) • [User Flow](#-user-workflow) • [API Reference](#-api-reference) • [Quickstart](#-quickstart-guide)
+<p align="center">
+  <strong>An enterprise-grade, autonomous Retrieval-Augmented Generation platform engineered for high-precision mission-critical domains. Features Corrective RAG (CRAG) self-reflection, real-time Server-Sent Events (SSE) token streaming, A/B strategy experimentation arena, parent-child hierarchical chunk trees, dynamic knowledge graphs, policy timeline/SLA extractors, and cryptographic compliance audit trails.</strong>
+</p>
+
+---
+
+[Key Highlights](#-key-highlights) • [System Architecture](#-system-architecture) • [Execution Workflow](#-end-to-end-execution-workflow) • [Core Capabilities](#-core-capabilities--deep-technical-breakdown) • [REST API Reference](#-rest-api-reference) • [Quickstart Guide](#-quickstart-guide) • [Verification Suite](#-verification--test-suite)
+
+---
 
 </div>
+
+## 🌟 Key Highlights
+
+- **Autonomous Corrective RAG (CRAG)**: Evaluates context confidence via multi-factor semantic overlap and triggers self-correction loops (`CORRECT`, `AMBIGUOUS`, `INCORRECT`).
+- **Hybrid Retrieval with Weighted RRF**: Combines dense semantic vector embeddings with exact sparse BM25 token matching using Reciprocal Rank Fusion ($k=60$).
+- **Agentic Query Intelligence**: Intent routing, Hypothetical Document Embeddings (**HyDE**), and orthogonal step-back query decomposition.
+- **Multi-Collection Knowledge Vaults**: Isolated departmental storage across HR, SRE Infrastructure, InfoSec HIPAA, and Procurement.
+- **Physics-Based Entity Knowledge Graph**: Auto-extracts forms, acronyms, standards, and roles rendered in an interactive D3 canvas.
+- **RAG Triad Observability**: Real-time evaluation of Faithfulness, Context Relevance, Groundedness, and Hallucination Risk.
+- **A/B Strategy Experimentation Arena**: Live side-by-side benchmark comparing Baseline Dense Vector vs. NexusRAG Hybrid.
+- **Cryptographic Audit Certification**: Generates tamper-proof SHA-256 digital certificates with query hashes and citation fingerprints.
+- **Cyber-Luxe Web Control Center**: Glassmorphism UI with real-time score waterfall inspectors and token streaming.
 
 ---
 
 ## 🏗️ System Architecture
 
 ```mermaid
-graph TD
-    subgraph Client["Frontend Client (React 19 + Vite + Tailwind)"]
-        UI["Cyber-Luxe Dark Glassmorphic UI"]
-        Studio["AI Creation Studio (CreatePost)"]
-        Canvas["In-Browser Canvas Editor (ImageEditorModal)"]
-        Showcase["Community Showcase & Lightbox (Home)"]
-        PromptLab["Prompt Matrix & Roulette (InspirationLab)"]
-        Vault["Personal Vault (MyGallery)"]
+flowchart TD
+    subgraph ClientLayer["🌐 Enterprise Web Control Plane (HTML5 + Tailwind CSS + D3 Canvas)"]
+        UI["Cyber-Luxe Dashboard UI"]
+        Inspector["Live Retrieval Waterfall & Score Inspector"]
+        GraphUI["Entity & Document Knowledge Graph Visualizer"]
+        RAGOps["RAG Triad Observability (Faithfulness & Groundedness)"]
+        ArenaUI["A/B Strategy Experimentation Arena"]
+        TimelineUI["Policy Timeline & SLA Benchmark View"]
+        VaultUI["Multi-Collection Knowledge Vault Manager"]
     end
 
-    subgraph Backend["Backend API (Node.js + Express 5)"]
-        Router["Express API Gateway (/api/v1)"]
-        DalleRouter["Generation & Prompt Engine (/dalle)"]
-        PostRouter["Posts, Reactions & Comments (/post)"]
-        Store["Resilient DB Adapter (MongoDB + In-Memory Fallback)"]
+    subgraph QueryLayer["🧠 Agentic Query Intelligence Layer"]
+        QueryInput["Incoming User Query"]
+        IntentRouter["Query Classifier & Intent Router"]
+        HyDE["HyDE (Hypothetical Document Embeddings Generator)"]
+        MultiQuery["Multi-Query Decomposition & Step-Back Expansion"]
     end
 
-    subgraph Engines["AI Inference & Cloud Services"]
-        Flux["Flux.1 Schnell Engine (Pollinations Free Tier)"]
-        SDXL["Stable Diffusion XL Turbo Engine"]
-        OpenAI["OpenAI DALL·E 3 / DALL·E 2 API"]
-        Cloudinary["Cloudinary CDN Asset Storage"]
+    subgraph IndexLayer["🗄️ Multi-Collection Vault Registry & Hybrid Indices"]
+        DenseVec["Dense Semantic Vector Embeddings"]
+        SparseBM25["Sparse BM25 Index (Acronyms & Form IDs)"]
+        EntityGraph["Knowledge Entity & Relationship Graph"]
+        DocTree["Parent-Child Hierarchical Chunk Registry"]
+        VaultRegistry["Vault Partitions (HR / SRE / InfoSec / Procurement / Unified)"]
     end
 
-    Studio --> Router
-    Showcase --> Router
-    PromptLab --> Studio
-    Canvas --> Studio
+    subgraph FusionLayer["⚖️ Multi-Stage Retrieval & Precision Reranking"]
+        ParallelSearch["Parallel Dense + Sparse Over-fetching (Top-20)"]
+        RRF["Weighted Reciprocal Rank Fusion Engine (RRF, k=60, alpha)"]
+        CRAG["Corrective RAG (CRAG) Self-Reflection & Context Evaluator"]
+        CrossEncoder["Cross-Encoder Contextual Interaction Reranker (Top 3-5)"]
+    end
 
-    Router --> DalleRouter
-    Router --> PostRouter
+    subgraph GenLayer["🛡️ Generation, Observability & Compliance Certification"]
+        PromptBuilder["Context Assembler with Structural Breadcrumbs"]
+        LLM["Citation-Enforced Generator / SSE Streamer"]
+        FaithfulnessEval["Faithfulness & Groundedness Scorer"]
+        CitationVerifier["Inline Source Citation Validator"]
+        AuditSigner["Cryptographic SHA-256 Compliance Audit Signer"]
+    end
 
-    DalleRouter --> Flux
-    DalleRouter --> SDXL
-    DalleRouter --> OpenAI
-
-    PostRouter --> Store
-    PostRouter --> Cloudinary
+    UI --> QueryInput --> IntentRouter
+    IntentRouter --> HyDE & MultiQuery
+    HyDE & MultiQuery --> ParallelSearch
+    ParallelSearch --> RRF --> CRAG
+    CRAG -->|Correct / Ambiguous / Incorrect| CrossEncoder
+    CrossEncoder --> PromptBuilder --> LLM
+    LLM --> FaithfulnessEval & CitationVerifier --> RAGOps & UI
+    LLM --> AuditSigner
+    IndexLayer --> GraphUI & Inspector & TimelineUI
 ```
 
 ---
 
-## 🔄 User Workflow
+## 🔄 End-to-End Execution Workflow
 
 ```mermaid
 sequenceDiagram
     autonumber
-    actor Creator as User / Creator
-    participant UI as Studio UI
-    participant Enhancer as Magic Prompt Expander
-    participant Backend as Backend Engine
-    participant AI as AI Model (Flux / DALL-E)
-    participant Canvas as Canvas Editor
-    participant Community as Showcase Gallery
+    actor User as Client / User
+    participant API as FastAPI Control Plane
+    participant Agent as Query Intelligence Engine
+    participant Hybrid as Hybrid Index (Dense + BM25)
+    participant CRAG as CRAG Self-Reflection Loop
+    participant Rerank as Cross-Encoder Reranker
+    participant Gen as Citation Generator / SSE
+    participant Triad as RAG Triad Scorer
 
-    Creator->>UI: Enter prompt idea & choose style / aspect ratio
-    opt Prompt Enhancement
-        Creator->>Enhancer: Click "Magic Prompt" Wand
-        Enhancer-->>UI: Expanded cinematic prompt with lighting & lens parameters
+    User->>API: POST /api/v1/query (query, vault_id)
+    API->>Agent: Analyze Query (Intent + HyDE + Sub-Queries)
+    Agent-->>API: QueryAnalysis (Intent, Entities, Expansions, HyDE Doc)
+    API->>Hybrid: Parallel Search (Dense Vector + BM25 Sparse)
+    Hybrid-->>API: Top Candidate Chunks + RRF Fusion Scores
+    API->>CRAG: Grade Context Confidence & Relevance
+    CRAG-->>API: Action (CORRECT / AMBIGUOUS / INCORRECT)
+    alt Action is AMBIGUOUS
+        API->>Agent: Trigger Entity Expansion & Query Reformulation
     end
-
-    Creator->>Backend: Click "Generate Image"
-    Backend->>AI: Synthesize neural artwork
-    AI-->>Backend: High-resolution image data
-    Backend-->>UI: Render visual artwork in viewport
-
-    opt Post-Processing
-        Creator->>Canvas: Open Canvas Studio
-        Canvas-->>Canvas: Adjust brightness, contrast, filters & watermark
-        Canvas-->>UI: Apply edited masterpiece
-    end
-
-    Creator->>Backend: Click "Publish to Community Showcase"
-    Backend->>Community: Persist post with tags, model, and prompt
-    Community-->>Creator: View in Showcase, Remix, React & Share!
+    API->>Rerank: Contextual Cross-Attention Score Calculation
+    Rerank-->>API: Top-N Ranked Precision Chunks
+    API->>Gen: Synthesize Response with Strict Source Citations
+    Gen-->>API: Grounded Answer + Source Attribution Tags
+    API->>Triad: Evaluate Faithfulness & Groundedness
+    Triad-->>API: RAG Triad Metrics (Faithfulness, Relevance, Risk)
+    API-->>User: RAGQueryResponse (Answer, Citations, Triad, Audit Signature)
 ```
 
 ---
 
-## ✨ Key Features & Innovations
+## 🔬 Core Capabilities & Deep Technical Breakdown
 
-### 1. 🚀 Multi-Engine AI Generation Hub
-- **Flux.1 Schnell**: High-speed, ultra-HD visual generation without mandatory API keys.
-- **Stable Diffusion XL Turbo**: Detailed text-to-image synthesis with rapid latency.
-- **OpenAI DALL·E 3 & DALL·E 2**: Photorealistic visual creation with customizable quality (`Standard`, `HD`) and styles (`Vivid`, `Natural`).
-- **Flexible Aspect Ratios**: Choose from `1:1 Square`, `16:9 Landscape`, `9:16 Portrait/Story`, `4:3 Classic`, and `21:9 Ultrawide`.
-- **Advanced Optics & Lighting**: Customizable sliders and modifiers for volumetric god rays, cyberpunk neon, golden hour, 85mm portrait lenses, 35mm film grain, drone aerial views, and negative prompt filtering.
-
-### 2. 🪄 Prompt Engineering Lab & "Magic Prompt" Enhancer
-- **Magic Wand Auto-Enhancer**: 1-click automatic transformation of basic ideas into rich, cinematic, photorealistic prompt recipes with lighting, camera angles, and rendering tokens.
-- **Interactive Prompt Matrix Composer**: Modular block-by-block prompt builder (*Hero Subject* + *Environment* + *Style* + *Lighting* + *Lens*).
-- **Prompt Roulette Machine**: Randomized slot-machine prompt inspiration generator with particle confetti.
-- **Curated Prompt Decks**: Battle-tested prompt recipes categorized by *Sci-Fi*, *Dark Fantasy*, *3D Pixar*, *Anime/Ghibli*, *Characters*, and *Architecture*.
-
-### 3. 🎨 In-Browser AI Canvas & Post-Processing Studio
-- **Color Grading & Adjustments**: Real-time canvas sliders for Brightness, Contrast, Vibrance/Saturation, Sepia/Warmth, Hue Rotation, and Blur.
-- **Visual Filter Presets**: *Cyberpunk Neon*, *Vintage 80s*, *Dramatic Noir*, *Golden Sunset*, and *Vivid HDR*.
-- **Custom Watermark Tool**: Add custom signatures or brand watermarks with position controls.
-- **2x Super-Resolution Simulation**: Canvas bicubic sharpening and upscaling.
-- **Multi-Format Exporter**: Export creations in **PNG HD**, **JPG**, or **WebP**.
-
-### 4. 🌟 Community Showcase & Social Discovery 2.0
-- **1-Click Prompt Remixing**: Fork any community creation's prompt, model, style, and aspect ratio directly into your Creation Studio to iterate on it.
-- **High-Resolution Lightbox Modal**: Zoomable image inspector with full metadata drawer (model badge, prompt, aspect ratio, style tags, seed, creation date).
-- **Interactive Likes & Community Vibes**: Emoji vibe reactions (🔥, 🚀, ❤️, 🤯) and like counter.
-- **Interactive Comment Feed**: Leave real-time feedback and discussion on community posts.
-- **Advanced Filtering & Sorting**: Filter by category/style pills or sort by *Newest*, *Most Liked*, or *Oldest*.
-
-### 5. 🔒 Personal Vault (My Gallery)
-- **Saved Favorites**: Direct access to all bookmarked community artworks in local storage.
-- **Session Generation History**: Review, compare, remix, or download any artwork generated in your session.
-
-### 6. 💎 Cyber-Luxe Dark Glassmorphism UI
-- Frosted glass panels (`backdrop-blur-xl`), animated neon gradients, fluid micro-interactions, responsive mobile sub-navigation, and toast notifications.
+### 1. 🛡️ Corrective RAG (CRAG) Self-Reflection (`rag_engine/crag.py`)
+CRAG prevents hallucinated responses by evaluating the factual relevance and confidence of retrieved contexts before synthesis:
+- **`CORRECT`**: High semantic overlap ($\ge 0.40$) and high rerank signal ($\ge 0.70$). Proceeds immediately with synthesis.
+- **`AMBIGUOUS`**: Borderline retrieval confidence ($0.20 \le \text{confidence} < 0.70$). Triggers entity expansion, query reformulation, and context refinement.
+- **`INCORRECT`**: Retrieved context fails relevance criteria ($< 0.20$). Activates zero-hallucination refusal guardrails.
 
 ---
 
-## 📁 Project Directory Structure
-
-```
-Image-Generation-Using-AI/
-├── AI_Image_Generation/
-│   ├── BackEnd/
-│   │   ├── index.js                  # Express server entry point & health check
-│   │   ├── package.json              # Backend dependencies
-│   │   ├── mongodb/
-│   │   │   ├── connect.js            # MongoDB connection handler
-│   │   │   └── models/
-│   │   │       └── post.js           # Mongoose schema (model, style, tags, likes, comments)
-│   │   └── routes/
-│   │       ├── dalleRoutes.js        # Multi-model AI generation & prompt enhancer endpoint
-│   │       └── postRoutes.js         # Community posts CRUD, like toggle & comments
-│   └── FrontEnd/
-│       ├── index.html                # App root HTML with Google Fonts & metadata
-│       ├── package.json              # Frontend dependencies
-│       ├── vite.config.js            # Vite configuration
-│       ├── tailwind.config.js        # Tailwind styling tokens
-│       └── src/
-│           ├── App.jsx               # Navigation header, router & settings modal
-│           ├── index.css             # Glassmorphism design system & neon styling
-│           ├── main.jsx              # React DOM entry
-│           ├── assets/               # Icons & fallback assets
-│           ├── constants/            # Style presets, aspect ratios, prompt templates & demo data
-│           ├── utils/                # Prompt enhancer, storage helpers, canvas exporter
-│           ├── components/
-│           │   ├── Card.jsx          # Glassmorphic community showcase card
-│           │   ├── FormField.jsx     # Input field with Magic Prompt & Surprise Me
-│           │   ├── Loader.jsx        # Neon glowing AI loading indicator
-│           │   ├── LightboxModal.jsx # High-res zoomable modal with metadata & comments
-│           │   ├── ImageEditorModal.jsx # Canvas post-processing editor
-│           │   ├── ApiSettingsModal.jsx # Engine settings & API key manager
-│           │   └── Toast.jsx         # Toast notification provider
-│           └── pages/
-│               ├── Home.jsx          # Community Showcase 2.0 with search & category pills
-│               ├── CreatePost.jsx    # AI Creation Studio with multi-model controls
-│               ├── InspirationLab.jsx# Prompt matrix composer & prompt roulette
-│               └── MyGallery.jsx     # Personal favorites & generation history vault
-└── README.md                         # Project documentation
-```
+### 2. 🧠 Agentic Query Intelligence (`rag_engine/query_expansion.py`)
+- **Intent Classification**: Classifies queries into `policy_compliance`, `sre_metrics`, `comparative_synthesis`, `procedural`, `factoid`, or `out_of_domain`.
+- **HyDE (Hypothetical Document Embeddings)**: Hallucinates canonical enterprise policy passages to bridge the lexical gap between colloquial queries and structured documentation.
+- **Multi-Query Decomposition**: Expands queries into 3 orthogonal sub-queries (keyword code, conceptual semantic, and procedural) to optimize recall across distributed vaults.
 
 ---
 
-## 📡 API Reference
+### 3. ⚖️ Weighted Reciprocal Rank Fusion (RRF) & Cross-Encoder Reranking
+Combines ranked lists from dense semantic search and sparse BM25 lexical search using Reciprocal Rank Fusion:
 
-| Method | Endpoint | Description | Request Body / Query Params |
+$$\text{RRF\_Score}(d) = \alpha \cdot \frac{1}{k + r_{\text{dense}}(d)} + (1 - \alpha) \cdot \frac{1}{k + r_{\text{sparse}}(d)}$$
+
+Where:
+- $\alpha \in [0, 1]$ is the tunable balance weight between Dense and BM25 search (default: $0.5$).
+- $k$ is the smoothing constant (default: $60$).
+- Top candidates are subsequently reranked using a contextual **Cross-Encoder Reranker** for optimal precision.
+
+---
+
+### 4. 🗄️ Multi-Collection Knowledge Vault Registry (`rag_engine/vault_manager.py`)
+Maintains fully isolated indices, parent-child chunk hierarchies, and knowledge graphs per department:
+
+| Vault ID | Department | Description | Sample Policies / Codes |
 | :--- | :--- | :--- | :--- |
-| `GET` | `/` | Health check & system status | `None` |
-| `GET` | `/api/v1/dalle` | Engine capabilities & supported models | `None` |
-| `POST` | `/api/v1/dalle` | Generate image with AI engine | `{ prompt, model, size, width, height, customApiKey, seed }` |
-| `POST` | `/api/v1/dalle/enhance-prompt` | AI Prompt expander | `{ prompt, styleName, lighting, camera }` |
-| `GET` | `/api/v1/post` | Fetch community showcase posts | `?search=...&style=...&sortBy=latest\|popular` |
-| `POST` | `/api/v1/post` | Publish new artwork to showcase | `{ name, prompt, photo, model, style, aspectRatio, tags }` |
-| `PATCH` | `/api/v1/post/:id/like` | Toggle like counter | `{ action: "like" \| "unlike" }` |
-| `POST` | `/api/v1/post/:id/comment` | Append comment to post | `{ user, text }` |
+| `hr_benefits` | **Human Resources & Benefits** | PTO, medical absences, bereavement leave | `Form HR-402`, 20 days PTO, 5 days bereavement |
+| `sre_infra` | **SRE & Infrastructure SLAs** | Uptime SLAs, RTO/RPO targets, incident escalations | 99.99% uptime, 15m RTO, 60s RPO, P0 5min SLA |
+| `infosec_compliance` | **Information Security & HIPAA** | PHI protection, MFA rules, encryption specs | `Rule SEC-881`, `HIPAA 164.312`, AES-256, TLS 1.3 |
+| `procurement_quantum` | **AI & Quantum Procurement** | High-performance cluster purchasing & thermal limits | `Form QPU-99`, 45°C liquid cooling ceiling |
+| `all` | **All Enterprise Vaults** | Unified cross-departmental federated search | Complete enterprise catalog |
+
+---
+
+### 5. 🕸️ Entity Knowledge Graph & Relationship Canvas (`rag_engine/knowledge_graph.py`)
+- Automatically extracts entities categorized into **Forms**, **Standards**, **Acronyms**, **Roles**, and **Systems**.
+- Renders an interactive, physics-driven 2D graph visualizer with pulsing relationship links on the dashboard.
+
+---
+
+### 6. 📊 RAG Triad Observability & Faithfulness Evaluation (`rag_engine/evaluator.py`)
+- **Faithfulness Score** ($0.0 - 1.0$): Quantifies the percentage of generated claims verified against cited sources.
+- **Context Relevance Score** ($0.0 - 1.0$): Measures the signal-to-noise ratio of candidate passages.
+- **Answer Relevance Score** ($0.0 - 1.0$): Assesses alignment with the original query intent.
+- **Hallucination Risk Meter**: Real-time badge indicators (`LOW`, `MEDIUM`, `HIGH`).
+
+---
+
+### 7. ⚡ Real-Time SSE Token Streaming
+- Token-by-token streaming via Server-Sent Events (`POST /api/v1/query/stream`), delivering smooth conversational feedback with low latency.
+
+---
+
+### 8. 📜 Cryptographic Compliance Audit Certification
+- Automatically generates tamper-evident, SHA-256 hashed compliance audit certificates for each query response, recording:
+  - Unique Audit ID (e.g. `AUDIT-NEXUS-AEE2006C2A`)
+  - Query Hash & Active Vault ID
+  - Cited Chunk IDs & Content Signatures
+  - Cryptographic Verification Signature
+
+---
+
+## 📁 Repository Structure
+
+```
+NexusRAG-Enterprise/
+├── api/
+│   ├── main.py                     # FastAPI REST server with SSE streaming, CRAG, & Audit
+│   └── schemas.py                  # Pydantic request/response schemas
+├── rag_engine/
+│   ├── __init__.py                 # Package initializer
+│   ├── config.py                   # Tunable thresholds & pipeline configuration
+│   ├── crag.py                     # Corrective RAG (CRAG) self-reflection & grading loop
+│   ├── evaluator.py                # RAG Triad observability engine
+│   ├── generator.py                # Citation enforcement & hallucination guardrails
+│   ├── indexing.py                 # Dense vector embeddings + BM25 sparse indexer
+│   ├── ingestion.py                # Document parsing & hierarchical chunking
+│   ├── knowledge_graph.py          # Entity & relationship knowledge graph builder
+│   ├── query_expansion.py          # Agentic intent router, HyDE & multi-query engine
+│   ├── reranker.py                 # Cross-Encoder contextual precision reranker
+│   ├── retriever.py                # Weighted RRF hybrid retriever
+│   ├── timeline.py                 # Policy timeline & SLA milestone extractor
+│   └── vault_manager.py            # Multi-collection knowledge vault isolation manager
+├── static/
+│   ├── index.html                  # Cyber-Luxe Operations Dashboard UI
+│   └── app.js                      # Client application, SSE streaming & graph rendering
+├── tests/
+│   ├── test_complex_rag.py         # Multi-vault, HyDE, knowledge graph & Triad tests
+│   ├── test_crag_arena.py          # CRAG actions, SLA timeline & arena tests
+│   └── test_rag.py                 # Chunking, BM25 exact matching, RRF, reranking, & citations
+├── examples/
+│   ├── run_test_cases.py           # 7-part end-to-end enterprise test runner
+│   └── test_different_cases.py     # 8-scenario live verification test suite
+├── pytest.ini                      # Pytest configuration
+├── requirements.txt                # Python dependencies list
+├── .gitignore                      # Python/FastAPI gitignore
+└── README.md                       # Comprehensive system documentation
+```
+
+---
+
+## 📡 REST API Reference
+
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| `GET` | `/` | Cyber-Luxe Interactive Control Center Dashboard |
+| `GET` | `/docs` | Interactive Swagger API Documentation |
+| `GET` | `/api/v1/health` | System status, active vault metrics, and feature flags |
+| `GET` | `/api/v1/vaults` | List all available departmental knowledge vaults |
+| `POST` | `/api/v1/vaults/switch` | Switch active knowledge collection vault |
+| `GET` | `/api/v1/graph` | Retrieve entity knowledge graph nodes and directed links |
+| `GET` | `/api/v1/timeline` | Extract all cross-vault temporal SLAs and policy deadlines |
+| `POST` | `/api/v1/query/expand` | Preview intent classification, HyDE document, and sub-queries |
+| `POST` | `/api/v1/query` | Execute full Enterprise Hybrid RAG + CRAG + RAG Triad Evaluation |
+| `POST` | `/api/v1/query/stream` | Stream synthesized response token-by-token via Server-Sent Events (SSE) |
+| `POST` | `/api/v1/arena/compare` | Run side-by-side A/B benchmark (Dense Vector vs. NexusRAG Hybrid) |
+| `POST` | `/api/v1/audit/certify` | Generate cryptographic SHA-256 compliance audit certificate |
+| `POST` | `/api/v1/documents/ingest` | Ingest new document into vault with zero-downtime index rebuild |
 
 ---
 
 ## 🚀 Quickstart Guide
 
-### Prerequisites
-- **Node.js** v18+ installed.
-- **npm** or **yarn**.
-
-### 1. Start Backend Server
+### 1. Prerequisites & Virtual Environment
 ```bash
-cd AI_Image_Generation/BackEnd
-npm install
-npm start
-```
-> Server starts on [`http://localhost:8080`](http://localhost:8080).
+# Clone the repository and navigate to the project root
+git clone <repository-url>
+cd NexusRAG-Enterprise
 
-### 2. Start Frontend Client
-```bash
-cd AI_Image_Generation/FrontEnd
-npm install
-npm run dev
+# Create and activate Python 3.10+ virtual environment
+python3 -m venv .venv
+source .venv/bin/activate
+
+# Install frozen dependencies
+pip install -r requirements.txt
 ```
-> Client starts on [`http://localhost:5173`](http://localhost:5173).
+
+### 2. Start the Server
+```bash
+uvicorn api.main:app --host 0.0.0.0 --port 8000 --reload
+```
+
+- **Interactive Dashboard**: Open [`http://localhost:8000/`](http://localhost:8000/)
+- **Swagger Documentation**: Open [`http://localhost:8000/docs`](http://localhost:8000/docs)
 
 ---
 
-## ⚙️ Environment Variables (Optional)
+## 🧪 Verification & Test Suite
 
-Create a `.env` file in `AI_Image_Generation/BackEnd/`:
-
-```env
-PORT=8080
-MONGODB_URL=mongodb+srv://<username>:<password>@cluster.mongodb.net/aetherart
-CLOUDINARY_CLOUD_NAME=your_cloudinary_name
-CLOUDINARY_API_KEY=your_cloudinary_key
-CLOUDINARY_API_SECRET=your_cloudinary_secret
-OPENAI_API_KEY=sk-...
+### Run Pytest Automated Unit & Integration Tests
+```bash
+pytest tests/ -v
 ```
 
-> 🛡️ **Zero-Config Resilient Fallback**: If MongoDB, Cloudinary, or OpenAI API keys are not provided, the platform automatically utilizes its high-speed in-memory store and fast Flux.1/SDXL engine so the entire studio works out of the box!
+```text
+============================== test session starts ==============================
+collected 12 items
+
+tests/test_complex_rag.py::test_agentic_query_expansion PASSED           [  8%]
+tests/test_complex_rag.py::test_entity_knowledge_graph_extraction PASSED [ 16%]
+tests/test_complex_rag.py::test_rag_triad_evaluator PASSED               [ 25%]
+tests/test_complex_rag.py::test_multi_collection_vault_isolation PASSED  [ 33%]
+tests/test_crag_arena.py::test_crag_evaluation_actions PASSED            [ 41%]
+tests/test_crag_arena.py::test_policy_timeline_extractor PASSED          [ 50%]
+tests/test_rag.py::test_chunking_metadata PASSED                         [ 58%]
+tests/test_rag.py::test_exact_acronym_and_form_id_retrieval PASSED       [ 66%]
+tests/test_rag.py::test_reciprocal_rank_fusion PASSED                    [ 75%]
+tests/test_rag.py::test_cross_encoder_reranker PASSED                    [ 83%]
+tests/test_rag.py::test_enforced_citations_generation PASSED             [ 91%]
+tests/test_rag.py::test_hallucination_prevention_out_of_context PASSED   [100%]
+
+============================== 12 passed in 0.44s ==============================
+```
+
+### Run Live End-to-End Test Runners
+```bash
+# 7-Part Enterprise Test Suite
+python examples/run_test_cases.py
+
+# 8 Diverse Scenario Verification Cases
+python examples/test_different_cases.py
+```
 
 ---
 
-## 📄 License
+## 💻 Sample cURL Commands
 
-This project is open-source and available under the [ISC License](LICENSE).
+#### 1. Full Hybrid RAG Query with CRAG Self-Reflection
+```bash
+curl -X POST http://localhost:8000/api/v1/query \
+  -H "Content-Type: application/json" \
+  -d '{
+    "query": "What form must employees submit for medical absences over 3 days?",
+    "vault_id": "hr_benefits"
+  }'
+```
+
+#### 2. Real-Time Token Streaming (SSE)
+```bash
+curl -N -X POST http://localhost:8000/api/v1/query/stream \
+  -H "Content-Type: application/json" \
+  -d '{
+    "query": "What is the automated incident declaration SLA for P0 outages?",
+    "vault_id": "sre_infra"
+  }'
+```
+
+#### 3. Cross-Vault Policy Timeline & SLA Extraction
+```bash
+curl -s http://localhost:8000/api/v1/timeline | python3 -m json.tool
+```
+
+#### 4. A/B Strategy Arena Benchmark
+```bash
+curl -X POST http://localhost:8000/api/v1/arena/compare \
+  -H "Content-Type: application/json" \
+  -d '{
+    "query": "What encryption standards are mandated for PHI under HIPAA?",
+    "vault_id": "infosec_compliance"
+  }'
+```
+
+---
+
+<div align="center">
+  <sub>Built with ❤️ for Enterprise AI & Observability. NexusRAG Enterprise 4.0.</sub>
+</div>
