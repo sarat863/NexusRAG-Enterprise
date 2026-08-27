@@ -11,22 +11,38 @@ dotenv.config();
 const app = express();
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 app.use('/api/v1/post', postRoutes);
 app.use('/api/v1/dalle', dalleRoutes);
 
-app.get('/', async(req, res) => {
-    res.send('Hello from DALL-E!');
-})
-  
-const startServer = async () => {
+app.get('/', async (req, res) => {
+  res.json({
+    status: 'online',
+    app: 'AI Creative Studio 2.0 Backend',
+    timestamp: new Date().toISOString()
+  });
+});
 
-    try {
-        connectDB(process.env.MONGODB_URL);
-        app.listen(8080, () => console.log('Server has started on port http://localhost:8080'))
-    } catch (error) {
-        console.log(error);
+const PORT = process.env.PORT || 8080;
+
+const startServer = async () => {
+  try {
+    if (process.env.MONGODB_URL) {
+      try {
+        await connectDB(process.env.MONGODB_URL);
+        console.log('MongoDB connected successfully');
+      } catch (dbErr) {
+        console.warn('MongoDB connection warning (using in-memory fallback):', dbErr.message);
+      }
+    } else {
+      console.log('No MONGODB_URL provided in env, running with in-memory resilient fallback store.');
     }
-}
+
+    app.listen(PORT, () => console.log(`AI Studio Server running at http://localhost:${PORT}`));
+  } catch (error) {
+    console.error('Server startup error:', error);
+  }
+};
 
 startServer();
